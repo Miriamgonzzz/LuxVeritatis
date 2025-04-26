@@ -17,8 +17,8 @@ public class PlayerLogic : MonoBehaviour
     public float interactDistance = 3f;
     public string interactableTag = "InteractableObject"; //tag de los objetos interactuables
     public Image crosshairImage;          //referencia a la imagen de la mirilla
-    public Color defaultColor = Color.white;
-    public Color interactColor = Color.red;
+    public Color defaultColor = new Color(1f, 1f, 1f, 0.5f); //blanco semitransparente
+    public Color interactColor = new Color(1f, 0f, 0f, 0.8f); //rojo más sólido
 
     private void Start()
     {
@@ -102,6 +102,10 @@ public class PlayerLogic : MonoBehaviour
             {
                 Debug.Log("Recogido: " + hit.collider.name);
                 Destroy(hit.collider.gameObject); //destruye el objeto interactuable
+            }
+            else
+            {
+                Debug.Log("No es interactuable");
             }
         }
     }
