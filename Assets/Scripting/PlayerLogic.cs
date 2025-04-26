@@ -21,8 +21,8 @@ public class PlayerLogic : MonoBehaviour
     public Color interactColor = new Color(1f, 0f, 0f, 0.8f); //rojo más sólido
 
     [Header("Mirilla dinámica")]
-    public float crosshairShrinkSize = 1.5f;  //tamaño encogido de la mirilla cuando apunta a un objeto interactuable
-    public float crosshairNormalSize = 2f;  //tamaño normal de la mirilla
+    public float crosshairShrinkSize = 1f;  //tamaño encogido de la mirilla cuando apunta a un objeto interactuable
+    public float crosshairNormalSize = 1.5f;  //tamaño normal de la mirilla
     public float crosshairLerpSpeed = 10f;    //velocidad de la animación de la mirilla
     public float pulseSpeed = 2f;             //velocidad del parpadeo de la mirilla cuando apunta a objetos interacuables
     public float pulseAmount = 0.1f;           //latido del tamaño de la mirilla
