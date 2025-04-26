@@ -20,6 +20,13 @@ public class PlayerLogic : MonoBehaviour
     public Color defaultColor = new Color(1f, 1f, 1f, 0.5f); //blanco semitransparente
     public Color interactColor = new Color(1f, 0f, 0f, 0.8f); //rojo más sólido
 
+    [Header("Mirilla dinámica")]
+    public float crosshairShrinkSize = 1.5f;  //tamaño encogido de la mirilla cuando apunta a un objeto interactuable
+    public float crosshairNormalSize = 2f;  //tamaño normal de la mirilla
+    public float crosshairLerpSpeed = 10f;    //velocidad de la animación de la mirilla
+    public float pulseSpeed = 2f;             //velocidad del parpadeo de la mirilla cuando apunta a objetos interacuables
+    public float pulseAmount = 0.1f;           //latido del tamaño de la mirilla
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -71,23 +78,45 @@ public class PlayerLogic : MonoBehaviour
         playerCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
     }
 
-    //método para manejar la mirilla de apuntado
+    //método para manejar las acciones de la mirilla
     private void HandleCrosshair()
     {
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
         RaycastHit hit;
 
-        //si hay algo en el raycast
+        bool isLookingAtInteractable = false;
+
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
-            //si ese algo tiene el tag de InteractableObject, la mirilla se vuelve roja. Si no, permanece en blanco
-            crosshairImage.color = hit.collider.CompareTag(interactableTag) ? interactColor : defaultColor;
-            
+            if (hit.collider.CompareTag(interactableTag))
+            {
+                crosshairImage.color = interactColor;
+                isLookingAtInteractable = true;
+            }
+            else
+            {
+                crosshairImage.color = defaultColor;
+            }
         }
         else
         {
-            crosshairImage.color = defaultColor; //si no hay nada en el raycast, color por defecto de la mirilla, en blanco
+            crosshairImage.color = defaultColor;
         }
+
+        //animar tamaño de la mirilla
+        float baseTargetSize = isLookingAtInteractable ? crosshairShrinkSize : crosshairNormalSize;
+
+        //si está apuntando a un objeto, le añadimos un efecto de latido (pulse)
+        if (isLookingAtInteractable)
+        {
+            baseTargetSize += Mathf.Sin(Time.time * pulseSpeed) * pulseAmount;
+        }
+
+        crosshairImage.rectTransform.localScale = Vector3.Lerp(
+            crosshairImage.rectTransform.localScale,
+            Vector3.one * baseTargetSize,
+            Time.deltaTime * crosshairLerpSpeed
+        );
     }
 
     //método para intentar interactuar con el objeto al hacer clic

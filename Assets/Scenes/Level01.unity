@@ -522,6 +522,11 @@ MonoBehaviour:
   crosshairImage: {fileID: 1412879747}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   interactColor: {r: 1, g: 0, b: 0, a: 1}
+  crosshairShrinkSize: 1.5
+  crosshairNormalSize: 2
+  crosshairLerpSpeed: 10
+  pulseSpeed: 2
+  pulseAmount: 0.1
 --- !u!143 &527122392
 CharacterController:
   m_ObjectHideFlags: 0
