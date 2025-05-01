@@ -62,8 +62,35 @@ public class InventoryManager : MonoBehaviour
             inventoryPanel.SetActive(false);
         }
 
+        //escalar el objeto para que sea visible en la vista de inspección
+        ScaleObjectToFit(currentInspectObject);
+
         //muestra el panel de inspección
         inspectPanel.SetActive(true);
+    }
+
+    //método para reescalar los objetos en el modo inspección (dado que se ven más pequeños en escena)
+    private void ScaleObjectToFit(GameObject obj)
+    {
+        //obtener el renderer del objeto
+        Renderer renderer = obj.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            //obtener los límites del objeto
+            Bounds objectBounds = renderer.bounds;
+
+            //calcular un factor de escala basado en el tamaño del objeto
+            float maxSize = Mathf.Max(objectBounds.size.x, objectBounds.size.y, objectBounds.size.z);
+
+            //escala de referencia para el objeto
+            float targetScale = 200f; 
+
+            //calcular el factor de escala
+            float scaleFactor = targetScale / maxSize;
+
+            //aplicar la escala
+            obj.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+        }
     }
 
     //método para cerrar el panel de inspección
