@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Cubo
   m_EditorClassIdentifier: 
   itemName: Cubo de prueba
-  icon: {fileID: 0}
-  prefabToInspect: {fileID: 0}
+  icon: {fileID: 21300000, guid: e1a7e47291944534bbd15fae2d802695, type: 3}
+  prefabToInspect: {fileID: 6476824883820923084, guid: bdd3d4cb5520c80439d958cfe39ab6f5, type: 3}
