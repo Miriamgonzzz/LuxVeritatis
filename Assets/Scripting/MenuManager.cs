@@ -7,4 +7,10 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("IntroScene"); // Asegúrate que el nombre es exacto
     }
+
+    public void ExitGame()
+    {
+        Debug.Log("Saliendo del juego...");
+        Application.Quit();
+    }
 }
