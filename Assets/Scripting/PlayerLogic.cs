@@ -16,16 +16,16 @@ public class PlayerLogic : MonoBehaviour
     [Header("Interacción")]
     public float interactDistance = 3f;
     public string interactableTag = "InteractableObject"; //tag de los objetos interactuables
-    public Image crosshairImage;          //referencia a la imagen de la mirilla
+    public Image crosshairImage; //referencia a la imagen de la mirilla
     public Color defaultColor = new Color(1f, 1f, 1f, 0.5f); //blanco semitransparente
     public Color interactColor = new Color(1f, 0f, 0f, 0.8f); //rojo más sólido
 
     [Header("Mirilla dinámica")]
-    public float crosshairShrinkSize = 1f;  //tamaño encogido de la mirilla cuando apunta a un objeto interactuable
-    public float crosshairNormalSize = 1.5f;  //tamaño normal de la mirilla
-    public float crosshairLerpSpeed = 10f;    //velocidad de la animación de la mirilla
-    public float pulseSpeed = 2f;             //velocidad del parpadeo de la mirilla cuando apunta a objetos interacuables
-    public float pulseAmount = 0.1f;           //latido del tamaño de la mirilla
+    public float crosshairShrinkSize = 1f; //tamaño encogido de la mirilla cuando apunta a un objeto interactuable
+    public float crosshairNormalSize = 1.5f; //tamaño normal de la mirilla
+    public float crosshairLerpSpeed = 10f; //velocidad de la animación de la mirilla
+    public float pulseSpeed = 2f; //velocidad del parpadeo de la mirilla cuando apunta a objetos interacuables
+    public float pulseAmount = 0.1f; //latido del tamaño de la mirilla
 
     private void Start()
     {
@@ -122,15 +122,28 @@ public class PlayerLogic : MonoBehaviour
     //método para intentar interactuar con el objeto al hacer clic
     private void TryInteract()
     {
+        //creación de un rayo (Ray) que empieza desde la posición del jugador y va hacia delante en la posición hacia la que mira
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+
+        //declara una variable, hit, que guarda la información del objeto si golpea alguno
         RaycastHit hit;
 
+        //lanza el rayo en la escena usando RayCast.Si golpea un collider dentro de la distancia definida en interactDistance, entra en el if.
+        //el out hit guarda los datos del impaxcto (qué objeto se golpeó, su posición, etc...)
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
-            if (hit.collider.CompareTag(interactableTag)) //verifica si el objeto tiene el tag InteractableObject
+            if (hit.collider.CompareTag(interactableTag)) //verifica si el objeto impactado tiene el tag InteractableObject
             {
                 Debug.Log("Recogido: " + hit.collider.name);
-                Destroy(hit.collider.gameObject); //destruye el objeto interactuable
+
+                //obtiene del objeto golpeado su componente CollectableObject con su información
+                CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
+                if (obj != null)
+                {
+                    //llamamos al singleton de InventoryManager para agregar ese itemData al inventario
+                    InventoryManager.Instance.AddItem(obj.itemData);
+                }
+                Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el inventario
             }
             else
             {
