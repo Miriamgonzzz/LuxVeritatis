@@ -14,7 +14,7 @@ public class PlayerLogic : MonoBehaviour
 
     //variables de interacción
     [Header("Interacción")]
-    public float interactDistance = 3f;
+    public float interactDistance = 5f;
     public string interactableTag = "InteractableObject"; //tag de los objetos interactuables
     public Image crosshairImage; //referencia a la imagen de la mirilla
     public Color defaultColor = new Color(1f, 1f, 1f, 0.5f); //blanco semitransparente
