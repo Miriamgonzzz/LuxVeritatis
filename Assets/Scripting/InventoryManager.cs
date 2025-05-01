@@ -19,6 +19,7 @@ public class InventoryManager : MonoBehaviour
     private GameObject currentInspectObject; //referencia al objeto que está siendo inspeccionado actualmente
     public GameObject inventoryPanel; //campo para el panel de inventario
 
+
     //al cargar el script, se asigna this como la instancia global para usar el singleton
     void Awake()
     {
@@ -65,8 +66,17 @@ public class InventoryManager : MonoBehaviour
         //escalar el objeto para que sea visible en la vista de inspección
         ScaleObjectToFit(currentInspectObject);
 
+        //asegurarse de que el objeto puede rotar
+        ObjectRotator rotator = currentInspectObject.GetComponent<ObjectRotator>();
+        if (rotator == null)
+        {
+            //si el objeto no tiene el script de rotación, se lo añade
+            rotator = currentInspectObject.AddComponent<ObjectRotator>();
+        }
+
         //muestra el panel de inspección
         inspectPanel.SetActive(true);
+            
     }
 
     //método para reescalar los objetos en el modo inspección (dado que se ven más pequeños en escena)

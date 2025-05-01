@@ -30,6 +30,7 @@ public class PlayerLogic : MonoBehaviour
     [Header("Inventario")]
     public GameObject inventoryPanel;
     private bool isInventoryOpen = false; //boolean que controla si el inventario está abierto o no
+    public GameObject inspectPanel; //variable para el panel de inspección de objetos
 
     private void Start()
     {
@@ -54,7 +55,7 @@ public class PlayerLogic : MonoBehaviour
 
     private void Update()
     {
-        if (!isInventoryOpen) //solo se puede mover el personaje y rotar la cámara cuando el inventario está cerrado
+        if (!isInventoryOpen && !inspectPanel.activeSelf) //solo se puede mover el personaje y rotar la cámara cuando el inventario y el panel de inspección de objetos están cerrados
         {
             Move(); //movimiento del jugador
             Look(); //movimiento de la cámara del jugador
@@ -68,7 +69,7 @@ public class PlayerLogic : MonoBehaviour
         }
 
         //abre o cierra el inventario con la tecla "Q"
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && !inspectPanel.activeSelf)
         {
             ToggleInventory();
         }
@@ -186,12 +187,24 @@ public class PlayerLogic : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+
+                //desactivar la mirilla del juego cuando se abra el inventario
+                if (crosshairImage != null)
+                {
+                    crosshairImage.gameObject.SetActive(false);
+                }
             }
             else
             {
                 //si el inventario está cerrado, bloquea el cursor
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+
+                //activar la mirilla del juego cuando se cierre el inventario
+                if (crosshairImage != null)
+                {
+                    crosshairImage.gameObject.SetActive(true);
+                }
             }
         }
     }

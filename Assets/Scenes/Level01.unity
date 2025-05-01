@@ -833,6 +833,7 @@ MonoBehaviour:
   pulseSpeed: 2
   pulseAmount: 0.1
   inventoryPanel: {fileID: 202077037}
+  inspectPanel: {fileID: 274695414}
 --- !u!143 &527122392
 CharacterController:
   m_ObjectHideFlags: 0
