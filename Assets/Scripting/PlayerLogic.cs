@@ -68,10 +68,15 @@ public class PlayerLogic : MonoBehaviour
             TryInteract();
         }
 
-        //abre o cierra el inventario con la tecla "Q"
+        //abre o cierra el inventario con la tecla "Q" siempre que el inspectPanel esté cerrado también
         if (Input.GetKeyDown(KeyCode.Q) && !inspectPanel.activeSelf)
         {
             ToggleInventory();
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            InventoryManager.Instance.UnequipItem();
         }
     }
 
