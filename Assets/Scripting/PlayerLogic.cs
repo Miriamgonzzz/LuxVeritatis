@@ -27,6 +27,10 @@ public class PlayerLogic : MonoBehaviour
     public float pulseSpeed = 2f; //velocidad del parpadeo de la mirilla cuando apunta a objetos interacuables
     public float pulseAmount = 0.1f; //latido del tamaño de la mirilla
 
+    [Header("Inventario")]
+    public GameObject inventoryPanel;
+    private bool isInventoryOpen = false; //boolean que controla si el inventario está abierto o no
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -40,17 +44,33 @@ public class PlayerLogic : MonoBehaviour
         {
             crosshairImage.color = defaultColor;
         }
+
+        //asegurarse de que el inventario esté cerrado al inicio
+        if (inventoryPanel != null)
+        {
+            inventoryPanel.SetActive(false);
+        }
     }
 
     private void Update()
     {
-        Move(); //movimiento del jugador
-        Look(); //movimiento de la cámara del jugador
+        if (!isInventoryOpen) //solo se puede mover el personaje y rotar la cámara cuando el inventario está cerrado
+        {
+            Move(); //movimiento del jugador
+            Look(); //movimiento de la cámara del jugador
+        }
+        
         HandleCrosshair(); //actualización de la mirilla
 
         if (Input.GetMouseButtonDown(0)) //interacción con el objeto al hacer clic
         {
             TryInteract();
+        }
+
+        //abre o cierra el inventario con la tecla "Q"
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ToggleInventory();
         }
     }
 
@@ -148,6 +168,30 @@ public class PlayerLogic : MonoBehaviour
             else
             {
                 Debug.Log("No es interactuable");
+            }
+        }
+    }
+
+    //método para abrir/cerrar el inventario
+    private void ToggleInventory()
+    {
+        if (inventoryPanel != null)
+        {
+            isInventoryOpen = !isInventoryOpen; //cambia el estado del inventario
+
+            inventoryPanel.SetActive(isInventoryOpen);
+
+            //si el inventario está abierto, desbloquea el cursor
+            if (isInventoryOpen)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                //si el inventario está cerrado, bloquea el cursor
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
         }
     }

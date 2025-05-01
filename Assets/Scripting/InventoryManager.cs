@@ -17,6 +17,7 @@ public class InventoryManager : MonoBehaviour
 
     private List<InventoryItem> items = new List<InventoryItem>(); //lista de objetos recogidos por el jugador
     private GameObject currentInspectObject; //referencia al objeto que está siendo inspeccionado actualmente
+    public GameObject inventoryPanel; //campo para el panel de inventario
 
     //al cargar el script, se asigna this como la instancia global para usar el singleton
     void Awake()
@@ -47,12 +48,19 @@ public class InventoryManager : MonoBehaviour
         {
             Destroy(currentInspectObject);
         }
-         
+
+        Debug.Log("Instanciando: " + item.prefabToInspect.name);
         currentInspectObject = Instantiate(item.prefabToInspect, inspectSpawnPoint); //instancia el objeto a inspeccionar en la posición del inspectSpawnPoint
 
         //asegura que el objeto esté bien posicionado y centrado dentro del spawn
         currentInspectObject.transform.localPosition = Vector3.zero;
         currentInspectObject.transform.localRotation = Quaternion.identity;
+
+        //si el inventario está abierto, lo cierra al abrir el panel de inspección
+        if (inventoryPanel != null)
+        {
+            inventoryPanel.SetActive(false);
+        }
 
         //muestra el panel de inspección
         inspectPanel.SetActive(true);
@@ -69,5 +77,11 @@ public class InventoryManager : MonoBehaviour
         
         //oculta el panel de inspección
         inspectPanel.SetActive(false);
+
+        //reabre el inventario al cerrar el panel de inspección de objeto
+        if (inventoryPanel != null)
+        {
+            inventoryPanel.SetActive(true);
+        }
     }
 }
