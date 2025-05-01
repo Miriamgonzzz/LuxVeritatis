@@ -7,6 +7,7 @@ public class InventoryManager : MonoBehaviour
     //singleton, permite acceder a InventoryManager.Instance desde cualquier parte del código y asegura una única instancia global
     public static InventoryManager Instance;
 
+    [Header("Inventario")]
     public Transform inventoryUIGrid; //contenedor de los slots del inventario
     public GameObject inventorySlotPrefab; //slot individual del inventario
     public GameObject inspectPanel; //panel de UI que se muestra al inspeccionar un objeto
@@ -19,6 +20,9 @@ public class InventoryManager : MonoBehaviour
     private GameObject currentInspectObject; //referencia al objeto que está siendo inspeccionado actualmente
     public GameObject inventoryPanel; //campo para el panel de inventario
 
+    [Header("Objeto equipado")]
+    public Transform handSlot; //punto como si fuera la mano de Elisa
+    private GameObject equippedObject; //referencia al objeto actualmente equipado
 
     //al cargar el script, se asigna this como la instancia global para usar el singleton
     void Awake()
@@ -50,8 +54,8 @@ public class InventoryManager : MonoBehaviour
             Destroy(currentInspectObject);
         }
 
-        Debug.Log("Instanciando: " + item.prefabToInspect.name);
         currentInspectObject = Instantiate(item.prefabToInspect, inspectSpawnPoint); //instancia el objeto a inspeccionar en la posición del inspectSpawnPoint
+        currentInspectObject.AddComponent<InventoryItemPreview>().sourcePrefab = item.prefabToInspect;//usamos el script de InventoryItemPreview para guardar una preview que podernos equipar si elegimos el objeto
 
         //asegura que el objeto esté bien posicionado y centrado dentro del spawn
         currentInspectObject.transform.localPosition = Vector3.zero;
@@ -101,6 +105,28 @@ public class InventoryManager : MonoBehaviour
             //aplicar la escala
             obj.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
         }
+    }
+
+    //método para equipar el objeto seleccionado
+    public void EquipCurrentItem()
+    {
+        if (currentInspectObject == null)
+        {
+            return;
+        }
+
+        //borra el objeto anterior si hay uno equipado
+        if (equippedObject != null)
+        {
+            Destroy(equippedObject);
+        }
+
+        //instancia el nuevo objeto en la mano de Elisa
+        equippedObject = Instantiate(currentInspectObject.GetComponent<InventoryItemPreview>().sourcePrefab, handSlot);
+        equippedObject.transform.localPosition = Vector3.zero;
+        equippedObject.transform.localRotation = Quaternion.identity;
+
+        CloseInspect();
     }
 
     //método para cerrar el panel de inspección
