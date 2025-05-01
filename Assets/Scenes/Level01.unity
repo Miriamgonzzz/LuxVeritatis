@@ -875,6 +875,75 @@ Transform:
   - {fileID: 1042246985}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &684294782
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.26640135
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.26640135
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.26640135
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -59.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -7.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -76
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
+      propertyPath: m_Name
+      value: Abadia entrada
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
 --- !u!1 &729905969
 GameObject:
   m_ObjectHideFlags: 0
@@ -2226,3 +2295,4 @@ SceneRoots:
   - {fileID: 1365316463}
   - {fileID: 177094715}
   - {fileID: 1595141541}
+  - {fileID: 684294782}
