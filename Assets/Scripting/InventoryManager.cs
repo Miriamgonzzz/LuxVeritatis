@@ -126,7 +126,18 @@ public class InventoryManager : MonoBehaviour
         equippedObject.transform.localPosition = Vector3.zero;
         equippedObject.transform.localRotation = Quaternion.identity;
 
+        Debug.Log("Objeto equipado" + equippedObject.name);
         CloseInspect();
+    }
+
+    //método para desequipar el objeto del inventario
+    public void UnequipItem()
+    {
+        if (equippedObject != null)
+        {
+            Destroy(equippedObject);
+            equippedObject = null;
+        }
     }
 
     //método para cerrar el panel de inspección
