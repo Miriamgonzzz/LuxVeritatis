@@ -17,8 +17,8 @@ public class InventoryManager : MonoBehaviour
     public Transform inspectSpawnPoint; //punto dónde se instancia temporalmente ese objeto a inspeccionar
 
     private List<CollectibleItem> inventoryItems = new List<CollectibleItem>(); //lista de objetos del inventario
-    private List<CollectibleItem> collectableItems = new List<CollectibleItem>(); //lista de objetos coleccionables
-    private List<CollectibleItem> noteItems = new List<CollectibleItem>(); //lista de objetos escritos (notas y entradas del diario)
+    private List<CollectibleItem> secundaryItems = new List<CollectibleItem>(); //lista de objetos coleccionables
+    private List<CollectibleItem> textItems = new List<CollectibleItem>(); //lista de objetos escritos (notas y entradas del diario)
     private GameObject currentInspectObject; //referencia al objeto que está siendo inspeccionado actualmente
     public GameObject inventoryPanel; //campo para el panel de inventario
 
