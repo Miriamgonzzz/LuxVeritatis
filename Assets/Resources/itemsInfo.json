@@ -20,6 +20,13 @@
       "itemName": "Entrada 01 del diario",
       "description": "La primera página del diario de Alvar de Ayala",
       "storyText": "Mi nombre es Alvar de Ayala, y os voy a contar mi historia. Corría el año de nuestro señor de 1123..."
+    },
+    {
+      "ID": "key01",
+      "itemType": "inventoryItem",
+      "itemName": "Llave vestibulo 01",
+      "description": "Una llave de aspecto antiguo y oxidado",
+      "storyText": "Encontraste esta llave en el vestíbulo de la Abadía"
     }
   ]
 }
