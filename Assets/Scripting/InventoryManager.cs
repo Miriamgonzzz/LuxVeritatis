@@ -16,7 +16,9 @@ public class InventoryManager : MonoBehaviour
     public Camera inspectCamera; //cámara que renderiza solamente el objeto a inspeccionar
     public Transform inspectSpawnPoint; //punto dónde se instancia temporalmente ese objeto a inspeccionar
 
-    private List<InventoryItem> items = new List<InventoryItem>(); //lista de objetos recogidos por el jugador
+    private List<CollectibleItem> inventoryItems = new List<CollectibleItem>(); //lista de objetos del inventario
+    private List<CollectibleItem> collectableItems = new List<CollectibleItem>(); //lista de objetos coleccionables
+    private List<CollectibleItem> noteItems = new List<CollectibleItem>(); //lista de objetos escritos (notas y entradas del diario)
     private GameObject currentInspectObject; //referencia al objeto que está siendo inspeccionado actualmente
     public GameObject inventoryPanel; //campo para el panel de inventario
 
@@ -31,22 +33,22 @@ public class InventoryManager : MonoBehaviour
     }
 
     //método para añadir objetos al inventario
-    public void AddItem(InventoryItem newItem)
+    public void AddItem(CollectibleItem newItem)
     {
         if (newItem == null) 
         {
             Debug.LogWarning("Item nulo al intentar añadir al inventario.");
             return;
-        } 
+        }
 
-        items.Add(newItem);
+        inventoryItems.Add(newItem);
         GameObject slot = Instantiate(inventorySlotPrefab, inventoryUIGrid); //creación de un nuevo slot del inventario como hijo de inventoryUIGrid
         slot.GetComponentInChildren<Image>().sprite = newItem.icon; //establece el icono del item (definido en el ScriptableObject) en la imagen del slot
         slot.GetComponent<Button>().onClick.AddListener(() => ShowInspect(newItem)); //añade un listener al botón del slot para llamar al método ShowInspect con el objeto asociado
     }
 
     //método para mostrar el objeto en el panel de inspección
-    public void ShowInspect(InventoryItem item)
+    public void ShowInspect(CollectibleItem item)
     {
         //elimina cualquier objeto previamente inspeccionado
         if (currentInspectObject != null) 

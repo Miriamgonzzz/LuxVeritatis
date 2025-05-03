@@ -165,6 +165,11 @@ public class PlayerLogic : MonoBehaviour
 
                 //obtiene el CollectableObject con su información del objeto golpeado por el ray
                 CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
+
+                Debug.Log("Info del objeto: " + obj.itemData.ID + "\n"
+                    + obj.itemData.itemName + "\n"
+                    + obj.itemData.description + "\n"
+                    + obj.itemData.storyText);
                 if (obj != null)
                 {
                     //llamamos al singleton de InventoryManager para agregar ese itemData al inventario
@@ -185,7 +190,7 @@ public class PlayerLogic : MonoBehaviour
             }
             else
             {
-                Debug.Log("No es interactuable");
+                Debug.Log("No es un objeto interactuable");
             }
         }
     }

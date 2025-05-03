@@ -1,0 +1,11 @@
+{
+  "items": [
+    {
+      "ID": "magicCube001",
+      "itemName": "Cubo mágico",
+      "description": "Un cubo mágico de propiedades ignotas",
+      "storyText": "Encontraste este cubo en el vestíbulo de la Abadía. Cuenta la leyenda que se usaba para hacer todo tipo de pruebas"
+    }
+  ]
+}
+
