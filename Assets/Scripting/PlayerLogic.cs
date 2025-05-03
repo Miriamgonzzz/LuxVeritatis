@@ -15,7 +15,7 @@ public class PlayerLogic : MonoBehaviour
     //variables de interacción
     [Header("Interacción")]
     public float interactDistance = 5f;
-    public string interactableTag = "InteractableObject"; //tag de los objetos interactuables
+    public string inventoryObject = "InventoryObject"; //tag de los objetos que, al recogerlos, van al inventario
     public Image crosshairImage; //referencia a la imagen de la mirilla
     public Color defaultColor = new Color(1f, 1f, 1f, 0.5f); //blanco semitransparente
     public Color interactColor = new Color(1f, 0f, 0f, 0.8f); //rojo más sólido
@@ -114,7 +114,7 @@ public class PlayerLogic : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
-            if (hit.collider.CompareTag(interactableTag))
+            if (hit.collider.CompareTag(inventoryObject))
             {
                 crosshairImage.color = interactColor;
                 isLookingAtInteractable = true;
@@ -158,7 +158,7 @@ public class PlayerLogic : MonoBehaviour
         //el out hit guarda los datos del impaxcto (qué objeto se golpeó, su posición, etc...)
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
-            if (hit.collider.CompareTag(interactableTag)) //verifica si el objeto impactado tiene el tag InteractableObject
+            if (hit.collider.CompareTag(inventoryObject)) //verifica si el objeto impactado tiene el tag InteractableObject
             {
                 Debug.Log("Recogido: " + hit.collider.name);
 

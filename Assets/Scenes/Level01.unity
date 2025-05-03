@@ -789,7 +789,7 @@ MonoBehaviour:
   moveSpeed: 5
   mouseSensitivity: 2
   interactDistance: 5
-  interactableTag: InteractableObject
+  inventoryObject: InventoryObject
   crosshairImage: {fileID: 1412879747}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   interactColor: {r: 1, g: 0, b: 0, a: 1}
@@ -1978,29 +1978,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6476824883820923084, guid: bdd3d4cb5520c80439d958cfe39ab6f5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1899631534}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdd3d4cb5520c80439d958cfe39ab6f5, type: 3}
---- !u!1 &1899631533 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6476824883820923084, guid: bdd3d4cb5520c80439d958cfe39ab6f5, type: 3}
-  m_PrefabInstance: {fileID: 1899631532}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1899631534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899631533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92e3e8323f857744583fcb1215fb3023, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: d8b236cfb3573ec418ae3418cb7fa935, type: 2}
 --- !u!1 &1943101945
 GameObject:
   m_ObjectHideFlags: 0
