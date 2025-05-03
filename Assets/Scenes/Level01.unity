@@ -2236,6 +2236,7 @@ MonoBehaviour:
   noteListContainer: {fileID: 1020037698}
   noteText: {fileID: 564352668}
   noteButtonPrefab: {fileID: 3430844493720393899, guid: dc19e9c6f67f0c243bd166334aed5bf5, type: 3}
+  cameraScript: {fileID: 0}
 --- !u!1 &1412879745
 GameObject:
   m_ObjectHideFlags: 0
@@ -3039,7 +3040,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000019007632}
+  m_AnchoredPosition: {x: 0, y: 0.00004116631}
   m_SizeDelta: {x: 0, y: 269.1701}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &2049415479
@@ -3155,7 +3156,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 8721713}
-  - {fileID: 1315915996}
   - {fileID: 527122393}
   - {fileID: 409445668}
   - {fileID: 1839435500}
