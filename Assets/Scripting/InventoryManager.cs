@@ -32,6 +32,25 @@ public class InventoryManager : MonoBehaviour
         Instance = this;
     }
 
+    void Update()
+    {
+        //verificar si el panel de inspección está activo
+        if (inspectPanel.activeSelf)
+        {
+            //obtener la entrada del ratón (la rueda para hacer scroll en los objetos que inspeccionamos)
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (Mathf.Abs(scroll) > 0.01f)
+            {
+                //aumentar o reducir el tamaño del objeto inspeccionado
+                if (currentInspectObject != null)
+                {
+                    float scaleChange = 1f + scroll; //la cantidad de cambio en la escala 
+                    currentInspectObject.transform.localScale *= scaleChange; //cambiar la escala del objeto
+                }
+            }
+        }
+    }
+
     //método para añadir objetos al inventario
     public void AddItem(CollectibleItem newItem)
     {
@@ -89,8 +108,8 @@ public class InventoryManager : MonoBehaviour
             inventoryPanel.SetActive(false);
         }
 
-        //escalar el objeto para que sea visible en la vista de inspección
-        ScaleObjectToFit(currentInspectObject);
+        //ajusta la cámara de inspección del objeto dependiendo del tamaño del objeto a inspeccionar en sí
+        AdjustInspectCameraToFit(currentInspectObject);
 
         //asegurarse de que el objeto puede rotar
         ObjectRotator rotator = currentInspectObject.GetComponent<ObjectRotator>();
@@ -105,28 +124,27 @@ public class InventoryManager : MonoBehaviour
             
     }
 
-    //método para reescalar los objetos en el modo inspección (dado que se ven más pequeños en escena)
-    private void ScaleObjectToFit(GameObject obj)
+    //método para ajustar la cámara de inspección del objeto dependiendo del tamaño del objeto a inspeccionar
+    private void AdjustInspectCameraToFit(GameObject obj)
     {
-        //obtener el renderer del objeto
-        Renderer renderer = obj.GetComponent<Renderer>();
-        if (renderer != null)
+        Renderer renderer = obj.GetComponentInChildren<Renderer>();
+        if (renderer == null)
         {
-            //obtener los límites del objeto
-            Bounds objectBounds = renderer.bounds;
-
-            //calcular un factor de escala basado en el tamaño del objeto
-            float maxSize = Mathf.Max(objectBounds.size.x, objectBounds.size.y, objectBounds.size.z);
-
-            //escala de referencia para el objeto
-            float targetScale = 200f; 
-
-            //calcular el factor de escala
-            float scaleFactor = targetScale / maxSize;
-
-            //aplicar la escala
-            obj.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+            Debug.LogWarning("No se ha encontrado un renderer sobre el que ajustar la cámara de inspección");
+            return;
         }
+
+        Bounds bounds = renderer.bounds;
+        float objectSize = Mathf.Max(bounds.size.x, bounds.size.y, bounds.size.z);
+
+        //distancia óptima basada en el tamaño del objeto y el campo de visión de la cámara
+        float distance = objectSize / Mathf.Tan(Mathf.Deg2Rad * inspectCamera.fieldOfView * 0.5f);
+
+        //ajusta la posición en el eje Z de la cámara para alejarla lo suficiente
+        Vector3 direction = inspectCamera.transform.forward;
+        inspectCamera.transform.position = inspectSpawnPoint.position - direction * distance;
+
+        inspectCamera.transform.LookAt(bounds.center);
     }
 
     //método para equipar el objeto seleccionado
