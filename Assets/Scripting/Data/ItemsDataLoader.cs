@@ -17,6 +17,7 @@ public class ItemsDataLoader : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("CARGANDO DATOS");
         TextAsset jsonFile = Resources.Load<TextAsset>("itemsInfo");
         if (jsonFile != null)
         {
