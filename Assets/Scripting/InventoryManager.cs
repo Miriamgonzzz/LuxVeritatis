@@ -17,8 +17,8 @@ public class InventoryManager : MonoBehaviour
     public Transform inspectSpawnPoint; //punto dónde se instancia temporalmente ese objeto a inspeccionar
 
     private List<CollectibleItem> inventoryItems = new List<CollectibleItem>(); //lista de objetos del inventario
-    private List<CollectibleItem> collectableItems = new List<CollectibleItem>(); //lista de objetos coleccionables
-    private List<CollectibleItem> noteItems = new List<CollectibleItem>(); //lista de objetos escritos (notas y entradas del diario)
+    private List<CollectibleItem> secundaryItems = new List<CollectibleItem>(); //lista de objetos coleccionables
+    private List<CollectibleItem> textItems = new List<CollectibleItem>(); //lista de objetos escritos (notas y entradas del diario)
     private GameObject currentInspectObject; //referencia al objeto que está siendo inspeccionado actualmente
     public GameObject inventoryPanel; //campo para el panel de inventario
 
@@ -41,10 +41,30 @@ public class InventoryManager : MonoBehaviour
             return;
         }
 
-        inventoryItems.Add(newItem);
-        GameObject slot = Instantiate(inventorySlotPrefab, inventoryUIGrid); //creación de un nuevo slot del inventario como hijo de inventoryUIGrid
-        slot.GetComponentInChildren<Image>().sprite = newItem.icon; //establece el icono del item (definido en el ScriptableObject) en la imagen del slot
-        slot.GetComponent<Button>().onClick.AddListener(() => ShowInspect(newItem)); //añade un listener al botón del slot para llamar al método ShowInspect con el objeto asociado
+        //dependiendo del itemType, se añade a la lista correspondiente
+        if (newItem.itemType == "inventoryItem")
+        {
+            Debug.Log("Añadido objeto al inventario");
+            inventoryItems.Add(newItem); //añadir a la lista de objetos del inventario
+
+            GameObject slot = Instantiate(inventorySlotPrefab, inventoryUIGrid); //creación de un nuevo slot del inventario como hijo de inventoryUIGrid
+            slot.GetComponentInChildren<Image>().sprite = newItem.icon; //establece el icono del item (definido en el ScriptableObject) en la imagen del slot
+            slot.GetComponent<Button>().onClick.AddListener(() => ShowInspect(newItem)); //añade un listener al botón del slot para llamar al método ShowInspect con el objeto asociado
+        }
+        else if (newItem.itemType == "secundaryItem")
+        {
+            Debug.Log("Añadido objeto coleccionable al diario");
+            secundaryItems.Add(newItem); //añadir a la lista de objetos coleccionables, en el diario
+        }
+        else if (newItem.itemType == "textItem")
+        {
+            Debug.Log("Añadido texto al diario");
+            textItems.Add(newItem); //añadir a la lista de textos del diario
+        }
+        else
+        {
+            Debug.LogWarning("Item con un tipo desconocido: " + newItem.itemType);
+        }
     }
 
     //método para mostrar el objeto en el panel de inspección

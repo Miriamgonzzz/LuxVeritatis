@@ -16,7 +16,6 @@ public class PlayerLogic : MonoBehaviour
     [Header("Interacción")]
     public float interactDistance = 5f;
     public string inventoryObject = "InventoryObject"; //tag de los objetos que, al recogerlos, van al inventario
-    public string diaryObject = "DiaryObject"; //tag de los objetos que, al recogerlos, van al diario (notas y objetos coleccionables)
     public Image crosshairImage; //referencia a la imagen de la mirilla
     public Color defaultColor = new Color(1f, 1f, 1f, 0.5f); //blanco semitransparente
     public Color interactColor = new Color(1f, 0f, 0f, 0.8f); //rojo más sólido
@@ -115,7 +114,7 @@ public class PlayerLogic : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
-            if (hit.collider.CompareTag(inventoryObject) || hit.collider.CompareTag(diaryObject))
+            if (hit.collider.CompareTag(inventoryObject))
             {
                 crosshairImage.color = interactColor;
                 isLookingAtInteractable = true;
@@ -161,7 +160,7 @@ public class PlayerLogic : MonoBehaviour
         {
             if (hit.collider.CompareTag(inventoryObject)) //verifica si el objeto impactado tiene el tag InventoryObject
             {
-                Debug.Log("Metido en el inventario: " + hit.collider.name);
+                Debug.Log("OBJETO RECOGIDO: " + hit.collider.name);
 
                 //obtiene el CollectableObject con su información del objeto golpeado por el ray
                 CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
@@ -176,17 +175,6 @@ public class PlayerLogic : MonoBehaviour
                     InventoryManager.Instance.AddItem(obj.itemData);
                 }
                 Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el inventario
-            }
-            else if (hit.collider.CompareTag(diaryObject))
-            {
-                Debug.Log("Metido en el diario: " + hit.collider.name);
-                CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
-
-                if (obj != null)
-                {
-                    InventoryManager.Instance.AddItem(obj.itemData);
-                }
-                Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el diario
             }
             else
             {

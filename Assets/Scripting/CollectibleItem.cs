@@ -8,6 +8,8 @@ public class CollectibleItem : ScriptableObject
     public GameObject prefabToInspect;
 
     [HideInInspector] public string itemName;
+    [HideInInspector] public string itemType;
     [HideInInspector] public string description;
     [HideInInspector] public string storyText;
+    
 }

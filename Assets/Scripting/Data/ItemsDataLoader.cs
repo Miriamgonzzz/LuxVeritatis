@@ -7,6 +7,7 @@ public class ItemTextData
 {
     public string ID;
     public string itemName;
+    public string itemType;
     public string description;     
     public string storyText;     
 }
@@ -31,6 +32,7 @@ public class ItemsDataLoader : MonoBehaviour
                     if (itemData.ID == textData.ID) //si el ID del CollectibleItem coincide con el almacena en el json, le carga la descripción y el texto
                     {
                         itemData.itemName = textData.itemName;
+                        itemData.itemType = textData.itemType;
                         itemData.description = textData.description;
                         itemData.storyText = textData.storyText;
                     }
