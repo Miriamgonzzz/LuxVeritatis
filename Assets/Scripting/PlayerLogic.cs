@@ -15,7 +15,8 @@ public class PlayerLogic : MonoBehaviour
     //variables de interacción
     [Header("Interacción")]
     public float interactDistance = 5f;
-    public string interactableTag = "InteractableObject"; //tag de los objetos interactuables
+    public string inventoryObject = "InventoryObject"; //tag de los objetos que, al recogerlos, van al inventario
+    public string diaryObject = "DiaryObject"; //tag de los objetos que, al recogerlos, van al diario (notas y objetos coleccionables)
     public Image crosshairImage; //referencia a la imagen de la mirilla
     public Color defaultColor = new Color(1f, 1f, 1f, 0.5f); //blanco semitransparente
     public Color interactColor = new Color(1f, 0f, 0f, 0.8f); //rojo más sólido
@@ -114,7 +115,7 @@ public class PlayerLogic : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
-            if (hit.collider.CompareTag(interactableTag))
+            if (hit.collider.CompareTag(inventoryObject) || hit.collider.CompareTag(diaryObject))
             {
                 crosshairImage.color = interactColor;
                 isLookingAtInteractable = true;
@@ -155,15 +156,20 @@ public class PlayerLogic : MonoBehaviour
         RaycastHit hit;
 
         //lanza el rayo en la escena usando RayCast.Si golpea un collider dentro de la distancia definida en interactDistance, entra en el if.
-        //el out hit guarda los datos del impaxcto (qué objeto se golpeó, su posición, etc...)
+        //el out hit guarda los datos del impacto (qué objeto se golpeó, su posición, etc...)
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
-            if (hit.collider.CompareTag(interactableTag)) //verifica si el objeto impactado tiene el tag InteractableObject
+            if (hit.collider.CompareTag(inventoryObject)) //verifica si el objeto impactado tiene el tag InventoryObject
             {
-                Debug.Log("Recogido: " + hit.collider.name);
+                Debug.Log("Metido en el inventario: " + hit.collider.name);
 
-                //obtiene del objeto golpeado su componente CollectableObject con su información
+                //obtiene el CollectableObject con su información del objeto golpeado por el ray
                 CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
+
+                Debug.Log("Info del objeto: " + obj.itemData.ID + "\n"
+                    + obj.itemData.itemName + "\n"
+                    + obj.itemData.description + "\n"
+                    + obj.itemData.storyText);
                 if (obj != null)
                 {
                     //llamamos al singleton de InventoryManager para agregar ese itemData al inventario
@@ -171,9 +177,20 @@ public class PlayerLogic : MonoBehaviour
                 }
                 Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el inventario
             }
+            else if (hit.collider.CompareTag(diaryObject))
+            {
+                Debug.Log("Metido en el diario: " + hit.collider.name);
+                CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
+
+                if (obj != null)
+                {
+                    InventoryManager.Instance.AddItem(obj.itemData);
+                }
+                Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el diario
+            }
             else
             {
-                Debug.Log("No es interactuable");
+                Debug.Log("No es un objeto interactuable");
             }
         }
     }
