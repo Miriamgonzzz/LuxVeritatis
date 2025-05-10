@@ -190,7 +190,7 @@ public class PlayerLogic : MonoBehaviour
                 }
                 Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el inventario
             }
-            else if (hit.collider.GetComponentInParent<LockPuzzle>()) //busca en el padre del objeto golpeado (puerta o cerraduras) el script del primer puzzle, LockPuzzle
+            else if (hit.collider.GetComponentInParent<LockPuzzle>() && !isInventoryOpen) //busca en el padre del objeto golpeado (puerta o cerraduras) el script del primer puzzle, LockPuzzle, si el inventario está cerrado
             {
                 hit.collider.GetComponentInParent<LockPuzzle>().TryInteract();
             }
@@ -202,7 +202,7 @@ public class PlayerLogic : MonoBehaviour
     }
 
     //método para abrir/cerrar el inventario
-    private void ToggleInventory()
+    public void ToggleInventory()
     {
         if (inventoryPanel != null)
         {

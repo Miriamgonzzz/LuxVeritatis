@@ -9,6 +9,8 @@ public class LockPuzzle : MonoBehaviour
     [Header("Puerta")]
     public GameObject door; //la puerta que se desactiva al abrirse (hay que cambiarla por una animación)
 
+    private int puzzlePoints = 100;
+
     private void Start()
     {
         //desactiva todas las cerraduras al inicio
@@ -50,14 +52,15 @@ public class LockPuzzle : MonoBehaviour
         {
             if (keyMeta.lockIndex == selectedLockIndex)
             {
-                FindFirstObjectByType<PlayerLogic>().ShowAdvice("¡Cerradura desbloqueada!");
-                FindFirstObjectByType<PlayerLogic>().AddPoints(10); //para actualizar la puntuación del jugador, pasándole los puntos que ha ganado
+                FindFirstObjectByType<PlayerLogic>().ShowAdvice("¡Cerradura desbloqueada!"); //para enviar un mensaje al HUD del jugador
+                FindFirstObjectByType<PlayerLogic>().AddPoints(puzzlePoints); //para actualizar la puntuación del jugador, pasándole los puntos que ha ganado
                 UnlockDoor();
                 InventoryManager.Instance.UnequipItem();
             }
             else
             {
                 FindFirstObjectByType<PlayerLogic>().ShowAdvice("La llave no coincide con la cerradura");
+                puzzlePoints -= 10;
             }
         }
         else

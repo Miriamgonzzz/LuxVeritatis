@@ -187,6 +187,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         CloseInspect();
+        FindFirstObjectByType<PlayerLogic>().ToggleInventory();
     }
 
     //método para desequipar el objeto del inventario y poner en null el ID del objeto equipado
