@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770457abe26a61344a2533fda4ae9c03, type: 3}
+  m_Name: HallKey03
+  m_EditorClassIdentifier: 
+  ID: key03
+  icon: {fileID: 21300000, guid: c89a245a0d1a5ec4b9641458c765fb74, type: 3}
+  prefabToInspect: {fileID: 8596629015426638289, guid: a754ef8c5bc714149a9ce3b45e0340e8, type: 3}
+  itemName: 
+  itemType: 
+  description: 
+  storyText: 

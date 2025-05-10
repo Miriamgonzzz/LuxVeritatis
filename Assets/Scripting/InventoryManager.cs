@@ -106,7 +106,9 @@ public class InventoryManager : MonoBehaviour
         }
 
         currentInspectObject = Instantiate(item.prefabToInspect, inspectSpawnPoint); //instancia el objeto a inspeccionar en la posición del inspectSpawnPoint
-        currentInspectObject.AddComponent<InventoryItemPreview>().sourcePrefab = item.prefabToInspect;//usamos el script de InventoryItemPreview para guardar una preview que podernos equipar si elegimos el objeto
+        InventoryItemPreview preview = currentInspectObject.AddComponent<InventoryItemPreview>();
+        preview.sourcePrefab = item.prefabToInspect;//usamos el script de InventoryItemPreview para guardar una preview que podremos equipar si elegimos el objeto
+        preview.sourceItem = item; //aquí pasamos el ScriptableObject real para poderlo equipar, usar, etc...
 
         //asegura que el objeto esté bien posicionado y centrado dentro del spawn
         currentInspectObject.transform.localPosition = Vector3.zero;
@@ -177,10 +179,10 @@ public class InventoryManager : MonoBehaviour
         equippedObject.transform.localRotation = Quaternion.identity;
 
         //obtener el ID desde el CollectibleItem correspondiente
-        CollectibleItem sourceItem = currentInspectObject.GetComponent<InventoryItemPreview>().sourcePrefab.GetComponent<CollectibleItem>();
-        if (sourceItem != null)
+        InventoryItemPreview preview = currentInspectObject.GetComponent<InventoryItemPreview>();
+        if (preview != null && preview.sourceItem != null)
         {
-            equippedItemID = sourceItem.ID;
+            equippedItemID = preview.sourceItem.ID;
             Debug.Log("Objeto equipado: " + equippedItemID);
         }
 

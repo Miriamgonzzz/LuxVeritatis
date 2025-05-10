@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 770457abe26a61344a2533fda4ae9c03, type: 3}
-  m_Name: Key01
+  m_Name: HallKey01
   m_EditorClassIdentifier: 
   ID: key01
   icon: {fileID: 21300000, guid: 056c6afbe201d7143a346c2b24df58de, type: 3}
