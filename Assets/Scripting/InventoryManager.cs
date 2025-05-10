@@ -207,6 +207,13 @@ public class InventoryManager : MonoBehaviour
         return equippedItemID;
     }
 
+    //getter para obtener el objeto equipado (para interactuar con los códigos de los Puzzles)
+    public GameObject GetEquippedObject()
+    {
+        return equippedObject;
+    }
+
+
     //método para saber si tenemos un objeto equipado
     public bool HasItemEquipped()
     {
