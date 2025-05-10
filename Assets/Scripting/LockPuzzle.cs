@@ -39,7 +39,7 @@ public class LockPuzzle : MonoBehaviour
     {
         if (!InventoryManager.Instance.HasItemEquipped())
         {
-            Debug.Log("No tienes una llave equipada.");
+            FindFirstObjectByType<PlayerLogic>().ShowAdvice("La puerta está cerrada. Busca la llave correcta");
             return;
         }
 
@@ -50,18 +50,19 @@ public class LockPuzzle : MonoBehaviour
         {
             if (keyMeta.lockIndex == selectedLockIndex)
             {
-                Debug.Log("¡Cerradura desbloqueada!");
+                FindFirstObjectByType<PlayerLogic>().ShowAdvice("¡Cerradura desbloqueada!");
+                FindFirstObjectByType<PlayerLogic>().AddPoints(10); //para actualizar la puntuación del jugador, pasándole los puntos que ha ganado
                 UnlockDoor();
                 InventoryManager.Instance.UnequipItem();
             }
             else
             {
-                Debug.Log("La llave no coincide con esta cerradura.");
+                FindFirstObjectByType<PlayerLogic>().ShowAdvice("La llave no coincide con la cerradura");
             }
         }
         else
         {
-            Debug.Log("El objeto equipado no es una llave válida.");
+            FindFirstObjectByType<PlayerLogic>().ShowAdvice("Tienes que equiparte con una llave");
         }
     }
 
@@ -75,7 +76,7 @@ public class LockPuzzle : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No se ha asignado un objeto de puerta.");
+            Debug.LogWarning("No se ha asignado un objeto de puerta");
         }
     }
 
