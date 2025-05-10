@@ -180,26 +180,7 @@ public class PlayerLogic : MonoBehaviour
             }
             else if (hit.collider.GetComponent<LockPuzzle>()) //lógica para si golpeamos con el raycast un objeto con el script LockPuzzle (primer puzzle)
             {
-                LockPuzzle lockPuzzle = hit.collider.GetComponent<LockPuzzle>();
-
-                if (!InventoryManager.Instance.HasItemEquipped())
-                {
-                    lockPuzzle.OpenPuzzle(); // Si no tiene una llave, abrir el puzzle
-                }
-                else
-                {
-                    // Verifica si el jugador tiene la llave correcta equipada
-                    GameObject equippedObject = InventoryManager.Instance.GetEquippedObject();
-                    KeyMetadata keyMeta = equippedObject.GetComponent<KeyMetadata>();
-                    if (keyMeta != null && keyMeta.lockIndex == lockPuzzle.GetSelectedLockIndex())
-                    {
-                        lockPuzzle.UnlockDoor(keyMeta); // La llave es correcta, desbloquea la puerta
-                    }
-                    else
-                    {
-                        lockPuzzle.ShowMessage("La llave no es correcta, prueba con otra."); // La llave no es correcta
-                    }
-                }
+                hit.collider.GetComponent<LockPuzzle>().TryInteract();
             }
             else
             {
