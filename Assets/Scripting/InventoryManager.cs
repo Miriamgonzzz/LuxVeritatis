@@ -220,24 +220,59 @@ public class InventoryManager : MonoBehaviour
         return !string.IsNullOrEmpty(equippedItemID);
     }
 
-    //método para eliminar del inventario todos los items de un tipo
-    public void RemoveAllItemsOfType(string type)
+    //método para eliminar objetos del inventario (si se usan en un puzzle, por ejemplo)
+    public void RemoveItem(CollectibleItem itemToRemove)
     {
-        inventoryItems.RemoveAll(item => item.itemType == type);
-
-        // Opcional: refrescar UI
-        foreach (Transform child in inventoryUIGrid)
+        if (itemToRemove == null)
         {
-            Destroy(child.gameObject);
+            Debug.LogWarning("Intentando eliminar un objeto nulo del inventario.");
+            return;
         }
 
-        foreach (CollectibleItem item in inventoryItems)
+        bool removed = false;
+
+        // 1. Eliminar de lista principal
+        if (inventoryItems.Contains(itemToRemove))
         {
-            GameObject slot = Instantiate(inventorySlotPrefab, inventoryUIGrid);
-            slot.GetComponentInChildren<Image>().sprite = item.icon;
-            slot.GetComponent<Button>().onClick.AddListener(() => ShowInspect(item));
+            inventoryItems.Remove(itemToRemove);
+            removed = true;
+        }
+        else if (secundaryItems.Contains(itemToRemove))
+        {
+            secundaryItems.Remove(itemToRemove);
+            removed = true;
+        }
+        else if (textItems.Contains(itemToRemove))
+        {
+            textItems.Remove(itemToRemove);
+            removed = true;
+        }
+
+        if (!removed)
+        {
+            Debug.LogWarning("El objeto no estaba en ninguna lista del inventario.");
+            return;
+        }
+
+        // 2. Eliminar el slot de UI correspondiente (solo para items del inventario)
+        foreach (Transform slot in inventoryUIGrid)
+        {
+            Image iconImage = slot.GetComponentInChildren<Image>();
+            if (iconImage != null && iconImage.sprite == itemToRemove.icon)
+            {
+                Destroy(slot.gameObject);
+                break;
+            }
+        }
+
+        // 3. Si está equipado, desequiparlo
+        if (equippedObject != null && equippedObject.name.Contains(itemToRemove.prefabToInspect.name))
+        {
+            UnequipItem();
         }
     }
+
+
 
 
 
