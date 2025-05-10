@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - InventoryObject
+  - PuzzleToSolve
   layers:
   - Default
   - TransparentFX

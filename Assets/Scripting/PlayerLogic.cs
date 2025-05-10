@@ -16,6 +16,7 @@ public class PlayerLogic : MonoBehaviour
     [Header("Interacción")]
     public float interactDistance = 5f;
     public string inventoryObject = "InventoryObject"; //tag de los objetos que, al recogerlos, van al inventario
+    public string puzzleToSolve = "PuzzleToSolve"; //tag de los objetos que inician un puzzle al interactuar con ellos
     public Image crosshairImage; //referencia a la imagen de la mirilla
     public Color defaultColor = new Color(1f, 1f, 1f, 0.5f); //blanco semitransparente
     public Color interactColor = new Color(1f, 0f, 0f, 0.8f); //rojo más sólido
@@ -114,7 +115,7 @@ public class PlayerLogic : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
-            if (hit.collider.CompareTag(inventoryObject))
+            if (hit.collider.CompareTag(inventoryObject) || hit.collider.CompareTag(puzzleToSolve))
             {
                 crosshairImage.color = interactColor;
                 isLookingAtInteractable = true;
@@ -158,6 +159,7 @@ public class PlayerLogic : MonoBehaviour
         //el out hit guarda los datos del impacto (qué objeto se golpeó, su posición, etc...)
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
+
             if (hit.collider.CompareTag(inventoryObject)) //verifica si el objeto impactado tiene el tag InventoryObject
             {
                 Debug.Log("OBJETO RECOGIDO: " + hit.collider.name);
@@ -175,6 +177,11 @@ public class PlayerLogic : MonoBehaviour
                     InventoryManager.Instance.AddItem(obj.itemData);
                 }
                 Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el inventario
+            }
+            else if (hit.collider.GetComponentInParent<LockPuzzle>()) //busca en el padre del objeto golpeado (puerta o cerraduras) el script del primer puzzle, LockPuzzle
+            {
+                Debug.Log("Hola");
+                hit.collider.GetComponentInParent<LockPuzzle>().TryInteract();
             }
             else
             {

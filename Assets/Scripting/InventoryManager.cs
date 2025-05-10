@@ -220,24 +220,64 @@ public class InventoryManager : MonoBehaviour
         return !string.IsNullOrEmpty(equippedItemID);
     }
 
-    //método para eliminar del inventario todos los items de un tipo
-    public void RemoveAllItemsOfType(string type)
+    //método para eliminar objetos del inventario (si se usan en un puzzle, por ejemplo)
+    public void RemoveItem(CollectibleItem itemToRemove)
     {
-        inventoryItems.RemoveAll(item => item.itemType == type);
-
-        // Opcional: refrescar UI
-        foreach (Transform child in inventoryUIGrid)
+        if (itemToRemove == null || string.IsNullOrEmpty(itemToRemove.ID))
         {
-            Destroy(child.gameObject);
+            Debug.LogWarning("Intentando eliminar un objeto nulo o sin ID del inventario.");
+            return;
         }
 
-        foreach (CollectibleItem item in inventoryItems)
+        bool removed = false;
+
+        // 1. Eliminar de listas según su ID
+        removed |= RemoveFromListByID(inventoryItems, itemToRemove.ID);
+        removed |= RemoveFromListByID(secundaryItems, itemToRemove.ID);
+        removed |= RemoveFromListByID(textItems, itemToRemove.ID);
+
+        if (!removed)
         {
-            GameObject slot = Instantiate(inventorySlotPrefab, inventoryUIGrid);
-            slot.GetComponentInChildren<Image>().sprite = item.icon;
-            slot.GetComponent<Button>().onClick.AddListener(() => ShowInspect(item));
+            Debug.LogWarning($"El objeto con ID '{itemToRemove.ID}' no se encontró en ninguna lista del inventario.");
+            return;
+        }
+
+        // 2. Eliminar el slot de UI correspondiente
+        foreach (Transform slot in inventoryUIGrid)
+        {
+            InventoryItemPreview preview = slot.GetComponent<InventoryItemPreview>();
+            if (preview != null && preview.sourceItem != null && preview.sourceItem.ID == itemToRemove.ID)
+            {
+                Destroy(slot.gameObject);
+                break;
+            }
+        }
+
+        // 3. Si está equipado, desequiparlo
+        if (equippedObject != null)
+        {
+            InventoryItemPreview equippedPreview = equippedObject.GetComponent<InventoryItemPreview>();
+            if (equippedPreview != null && equippedPreview.sourceItem != null && equippedPreview.sourceItem.ID == itemToRemove.ID)
+            {
+                UnequipItem();
+            }
         }
     }
+
+
+    private bool RemoveFromListByID(List<CollectibleItem> list, string id)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i] != null && list[i].ID == id)
+            {
+                list.RemoveAt(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 

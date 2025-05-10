@@ -1,93 +1,86 @@
-using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LockPuzzle : MonoBehaviour
 {
-    [Header("Cerradura")]
-    public GameObject lockModel; // Cerradura base (la de la puerta)
-    public GameObject[] availableLocks; // Cerraduras diferentes para mostrar en primer plano
+    [Header("Cerraduras físicas en la puerta")]
+    public GameObject[] lockVariants; //las 5 cerraduras colocadas en la escena
+    private int selectedLockIndex = -1;
 
-    [Header("Llaves")]
-    public CollectibleItem[] allKeys; // Lista de todas las llaves posibles del puzzle
-
-    [Header("UI")]
-    public Text puzzleMessage; // Texto para mostrar mensajes al jugador
-    public Button lockButton; // Botón que se pulsa para intentar abrir
-    public GameObject door; // La puerta que se abrirá si acierta
-
-    private int selectedLockIndex = -1; // Cerradura seleccionada al iniciar el puzzle
+    [Header("Puerta")]
+    public GameObject door; //la puerta que se desactiva al abrirse (hay que cambiarla por una animación)
 
     private void Start()
     {
-        // Seleccionar una cerradura aleatoria
-        selectedLockIndex = Random.Range(0, availableLocks.Length);
-
-        // Activar la cerradura seleccionada y ocultar las demás
-        UpdateLockUI();
-
-        // Añadir función al botón
-        lockButton.onClick.AddListener(TryUnlock);
-    }
-
-    private void UpdateLockUI()
-    {
-        for (int i = 0; i < availableLocks.Length; i++)
+        //desactiva todas las cerraduras al inicio
+        foreach (var lockObj in lockVariants)
         {
-            availableLocks[i].SetActive(i == selectedLockIndex);
+            if (lockObj != null)
+            {
+                lockObj.SetActive(false);
+            }
+                
         }
 
-        if (lockModel != null)
+        //activa una cerradura aleatoria de entre las 5
+        selectedLockIndex = Random.Range(0, lockVariants.Length);
+        if (lockVariants[selectedLockIndex] != null)
         {
-            lockModel.SetActive(false); // Ocultar modelo base si se usa una cerradura ampliada
-        }
-    }
-
-    private void TryUnlock()
-    {
-        if (!InventoryManager.Instance.HasItemEquipped())
-        {
-            ShowMessage("No tienes una llave equipada.");
-            return;
-        }
-
-        // Obtener GameObject equipado
-        GameObject equippedObject = InventoryManager.Instance.GetEquippedObject();
-        KeyMetadata keyMeta = equippedObject != null ? equippedObject.GetComponent<KeyMetadata>() : null;
-
-        if (keyMeta != null && keyMeta.lockIndex == selectedLockIndex)
-        {
-            UnlockDoor();
+            lockVariants[selectedLockIndex].SetActive(true);
+            Debug.Log("Activada la cerradura: " + selectedLockIndex);
         }
         else
         {
-            ShowMessage("La llave no es correcta.");
+            Debug.LogError("La cerradura seleccionada está vacía en el array.");
         }
     }
 
-
-    private void UnlockDoor()
+    //interactuar con la puerta y la llave
+    public void TryInteract()
     {
-        ShowMessage("¡La cerradura se ha abierto!");
+        if (!InventoryManager.Instance.HasItemEquipped())
+        {
+            Debug.Log("No tienes una llave equipada.");
+            return;
+        }
+
+        GameObject equippedObject = InventoryManager.Instance.GetEquippedObject();
+        KeyMetadata keyMeta = equippedObject.GetComponent<KeyMetadata>();
+
+        if (keyMeta != null)
+        {
+            if (keyMeta.lockIndex == selectedLockIndex)
+            {
+                Debug.Log("¡Cerradura desbloqueada!");
+                UnlockDoor();
+                InventoryManager.Instance.UnequipItem();
+            }
+            else
+            {
+                Debug.Log("La llave no coincide con esta cerradura.");
+            }
+        }
+        else
+        {
+            Debug.Log("El objeto equipado no es una llave válida.");
+        }
+    }
+
+    //método para desbloquear la puerta (aqui hay que poner alguna animación)
+    public void UnlockDoor()
+    {
         if (door != null)
         {
-            door.SetActive(false); // Ocultar la puerta (se abre)
+            lockVariants[selectedLockIndex].SetActive(false);
+            door.SetActive(false);
         }
-
-        // Eliminar las llaves del inventario (sean recogidas o no)
-        InventoryManager.Instance.RemoveAllItemsOfType("Key");
-
-        // Desequipar la llave
-        InventoryManager.Instance.UnequipItem();
-
-        // Aquí puedes llamar a otra función para cambiar de zona si quieres
+        else
+        {
+            Debug.LogWarning("No se ha asignado un objeto de puerta.");
+        }
     }
 
-    private void ShowMessage(string message)
+    public int GetSelectedLockIndex()
     {
-        if (puzzleMessage != null)
-        {
-            puzzleMessage.text = message;
-        }
+        return selectedLockIndex;
     }
 }
