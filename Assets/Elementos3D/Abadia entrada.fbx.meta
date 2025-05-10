@@ -3,7 +3,32 @@ guid: 7319b9492a5aa2843a1ce4c06b11caba
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Clay raw
+    second: {fileID: 2100000, guid: f4ebefaf216b0c04b911f18d20006fb8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 9713b78c9750db04393b49a82ae2dca6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: brick_moss_001
+    second: {fileID: 2100000, guid: 8ac04929f2fc40b4fa16c60be7170190, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: garage_floor
+    second: {fileID: 2100000, guid: 5d5ea1dd7ae0be24abbe5bbc1b4f9288, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: garage_floor.001
+    second: {fileID: 2100000, guid: 0f09cd22f6ff65d41821995ab99608ac, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
