@@ -29,7 +29,15 @@ public class InventoryManager : MonoBehaviour
     //al cargar el script, se asigna this como la instancia global para usar el singleton
     void Awake()
     {
-        Instance = this;
+        //con esta sencilla comprobación, si accidentalmente hay más de un objeto en escena de este tipo, lo destruye dejando uno
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
     void Update()
