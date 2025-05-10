@@ -1,16 +1,44 @@
 using UnityEngine;
 
-public class LockPuzzle : MonoBehaviour
+public class LockPuzzle : Puzzle
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private GameObject lockCanvas; //canvas con la cerradura
+    [SerializeField] private string correctKeyId;
+    [SerializeField] private GameObject doorToOpen;
+    [SerializeField] private GameObject[] keyObjectsInScene; //llaves no recogidas en escena
+
+    protected override void StartPuzzleLogic()
     {
-        
+        string equippedItemId = EquipmentManager.Instance.GetEquippedItemID();
+
+        if (string.IsNullOrEmpty(equippedItemId))
+        {
+            lockCanvas.SetActive(true); // mostrar canvas
+        }
+        else if (equippedItemId == correctKeyId)
+        {
+            PuzzleSolved();
+        }
+        else
+        {
+            Debug.Log("La llave no es correcta.");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void PuzzleSolved()
     {
-        
+        base.PuzzleSolved();
+
+        lockCanvas.SetActive(false);
+        doorToOpen.SetActive(false); // o usar animación
+
+        foreach (GameObject key in keyObjectsInScene)
+        {
+            if (key != null)
+                Destroy(key);
+        }
+
+        InventoryManager.Instance.RemoveAllItemsOfType("Key"); // Implementar si no existe
+        EquipmentManager.Instance.UnequipItem();
     }
 }
