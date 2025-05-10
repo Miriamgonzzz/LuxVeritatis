@@ -56,22 +56,4 @@ public class PauseManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void SaveGame()
-    {
-        SaveData data = new SaveData();
-        data.playerPosition = player.transform.position;
-
-        // Guardar los items del inventario
-        foreach (var item in InventoryManager.Instance.GetInventoryItems())
-        {
-            data.inventoryItemIDs.Add(item.ID);
-        }
-
-        // Guardar el nombre de la escena en la que se encuentra el jugador
-        data.sceneName = SceneManager.GetActiveScene().name;
-
-        // Guardar los datos
-        SaveSystem.Save(data);
-    }
-
 }
