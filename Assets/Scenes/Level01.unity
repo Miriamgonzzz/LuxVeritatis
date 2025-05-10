@@ -547,6 +547,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -14.39168
       objectReference: {fileID: 0}
+    - target: {fileID: -2669063565324697875, guid: d2017b00f7ff8b34a9777fe229329866, type: 3}
+      propertyPath: m_TagString
+      value: PuzzleToSolve
+      objectReference: {fileID: 0}
     - target: {fileID: -2333018042779896247, guid: d2017b00f7ff8b34a9777fe229329866, type: 3}
       propertyPath: m_LocalPosition.x
       value: 315.99115
@@ -570,6 +574,10 @@ PrefabInstance:
     - target: {fileID: -2190301175053812443, guid: d2017b00f7ff8b34a9777fe229329866, type: 3}
       propertyPath: m_LocalPosition.z
       value: 137.16985
+      objectReference: {fileID: 0}
+    - target: {fileID: -848705096164160184, guid: d2017b00f7ff8b34a9777fe229329866, type: 3}
+      propertyPath: m_TagString
+      value: PuzzleToSolve
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d2017b00f7ff8b34a9777fe229329866, type: 3}
       propertyPath: m_Name
@@ -602,8 +610,98 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -848705096164160184, guid: d2017b00f7ff8b34a9777fe229329866, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 118511987}
+    - targetCorrespondingSourceObject: {fileID: -2669063565324697875, guid: d2017b00f7ff8b34a9777fe229329866, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 118511984}
+    - targetCorrespondingSourceObject: {fileID: -2669063565324697875, guid: d2017b00f7ff8b34a9777fe229329866, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 118511986}
   m_SourcePrefab: {fileID: 100100000, guid: d2017b00f7ff8b34a9777fe229329866, type: 3}
+--- !u!1 &118511983 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2669063565324697875, guid: d2017b00f7ff8b34a9777fe229329866, type: 3}
+  m_PrefabInstance: {fileID: 118511982}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &118511984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118511983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7281f24420e9b674882cf17c38e5fde1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockModel: {fileID: 0}
+  availableLocks:
+  - {fileID: 685074785077041013, guid: 0608e42449521654aa85998b11215d7d, type: 3}
+  - {fileID: 1414132879282130332, guid: a1b42e80274e1ae429b028b1abca05f1, type: 3}
+  - {fileID: 7854687345013195922, guid: 6cff3da95a3e07a4ba93f9a84e16bb34, type: 3}
+  - {fileID: 1658234870995798009, guid: b7dee707826275e46b19c9a32523d2c2, type: 3}
+  - {fileID: 4371408157615534768, guid: 881d35e225f443e498b87e2a2060aeb5, type: 3}
+  allKeys:
+  - {fileID: 11400000, guid: 674a34462d2474342b0563d820b98351, type: 2}
+  - {fileID: 11400000, guid: 17ff495a4202f18418c1266efc4aeb2c, type: 2}
+  - {fileID: 11400000, guid: 517214b43a1fddc418e8a1d44cc243fe, type: 2}
+  - {fileID: 11400000, guid: 45ec43a9e9c94eb44b6ee5c5efbed39a, type: 2}
+  - {fileID: 11400000, guid: c6e87334e9675fb4295c1cd0030c1a65, type: 2}
+  puzzleCanvas: {fileID: 0}
+  puzzleMessage: {fileID: 0}
+  lockButton: {fileID: 0}
+  door: {fileID: 118511983}
+--- !u!1 &118511985 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -848705096164160184, guid: d2017b00f7ff8b34a9777fe229329866, type: 3}
+  m_PrefabInstance: {fileID: 118511982}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &118511986
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118511983}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9.239752, y: 34.287273, z: 46.40714}
+  m_Center: {x: 3.048391, y: -16.040152, z: 0.6635112}
+--- !u!65 &118511987
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118511985}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.443746, y: 2.588761, z: 3.1359255}
+  m_Center: {x: 0.17067266, y: -0.013295888, z: 0.57495743}
 --- !u!1 &177094714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1222,6 +1320,7 @@ MonoBehaviour:
   mouseSensitivity: 2
   interactDistance: 5
   inventoryObject: InventoryObject
+  puzzleToSolve: PuzzleToSolve
   crosshairImage: {fileID: 1412879747}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   interactColor: {r: 1, g: 0, b: 0, a: 1}
