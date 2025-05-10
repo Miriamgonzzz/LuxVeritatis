@@ -178,9 +178,10 @@ public class PlayerLogic : MonoBehaviour
                 }
                 Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el inventario
             }
-            else if (hit.collider.GetComponent<LockPuzzle>()) //lógica para si golpeamos con el raycast un objeto con el script LockPuzzle (primer puzzle)
+            else if (hit.collider.GetComponentInParent<LockPuzzle>()) //busca en el padre del objeto golpeado (puerta o cerraduras) el script del primer puzzle, LockPuzzle
             {
-                hit.collider.GetComponent<LockPuzzle>().TryInteract();
+                Debug.Log("Hola");
+                hit.collider.GetComponentInParent<LockPuzzle>().TryInteract();
             }
             else
             {

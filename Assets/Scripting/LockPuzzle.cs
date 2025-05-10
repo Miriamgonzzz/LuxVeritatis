@@ -3,26 +3,30 @@ using UnityEngine;
 public class LockPuzzle : MonoBehaviour
 {
     [Header("Cerraduras físicas en la puerta")]
-    public GameObject[] lockVariants; // Las 5 cerraduras colocadas en la escena
+    public GameObject[] lockVariants; //las 5 cerraduras colocadas en la escena
     private int selectedLockIndex = -1;
 
     [Header("Puerta")]
-    public GameObject door; // Objeto puerta que se desactiva al abrir
+    public GameObject door; //la puerta que se desactiva al abrirse (hay que cambiarla por una animación)
 
     private void Start()
     {
-        // Desactiva todas las cerraduras al inicio
+        //desactiva todas las cerraduras al inicio
         foreach (var lockObj in lockVariants)
         {
             if (lockObj != null)
+            {
                 lockObj.SetActive(false);
+            }
+                
         }
 
-        // Activa una cerradura aleatoria
+        //activa una cerradura aleatoria de entre las 5
         selectedLockIndex = Random.Range(0, lockVariants.Length);
         if (lockVariants[selectedLockIndex] != null)
         {
             lockVariants[selectedLockIndex].SetActive(true);
+            Debug.Log("Activada la cerradura: " + selectedLockIndex);
         }
         else
         {
@@ -30,6 +34,7 @@ public class LockPuzzle : MonoBehaviour
         }
     }
 
+    //interactuar con la puerta y la llave
     public void TryInteract()
     {
         if (!InventoryManager.Instance.HasItemEquipped())
@@ -60,10 +65,12 @@ public class LockPuzzle : MonoBehaviour
         }
     }
 
+    //método para desbloquear la puerta (aqui hay que poner alguna animación)
     public void UnlockDoor()
     {
         if (door != null)
         {
+            lockVariants[selectedLockIndex].SetActive(false);
             door.SetActive(false);
         }
         else
