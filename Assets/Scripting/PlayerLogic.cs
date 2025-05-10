@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,10 +35,19 @@ public class PlayerLogic : MonoBehaviour
     private bool isInventoryOpen = false; //boolean que controla si el inventario está abierto o no
     public GameObject inspectPanel; //variable para el panel de inspección de objetos
 
+    [Header("Hud Jugador")]
+    public TextMeshProUGUI adviceText;
+    public TextMeshProUGUI playerPoints;
+
+    private int currentPoints = 0;
+    private Coroutine currentAdvideCoroutine;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         playerCamera = GetComponentInChildren<Camera>();
+
+        playerPoints.text = "Puntos: ";
 
         //bloquea el cursor en el centro de la pantalla
         Cursor.lockState = CursorLockMode.Locked;
@@ -162,10 +173,11 @@ public class PlayerLogic : MonoBehaviour
 
             if (hit.collider.CompareTag(inventoryObject)) //verifica si el objeto impactado tiene el tag InventoryObject
             {
-                Debug.Log("OBJETO RECOGIDO: " + hit.collider.name);
 
                 //obtiene el CollectableObject con su información del objeto golpeado por el ray
                 CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
+
+                ShowAdvice("OBJETO RECOGIDO: " + obj.itemData.itemName);
 
                 Debug.Log("Info del objeto: " + obj.itemData.ID + "\n"
                     + obj.itemData.itemName + "\n"
@@ -180,7 +192,6 @@ public class PlayerLogic : MonoBehaviour
             }
             else if (hit.collider.GetComponentInParent<LockPuzzle>()) //busca en el padre del objeto golpeado (puerta o cerraduras) el script del primer puzzle, LockPuzzle
             {
-                Debug.Log("Hola");
                 hit.collider.GetComponentInParent<LockPuzzle>().TryInteract();
             }
             else
@@ -224,5 +235,38 @@ public class PlayerLogic : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void AddPoints(int amount)
+    {
+        currentPoints += amount;
+        UpdatePointsUI();
+    }
+
+    private void UpdatePointsUI()
+    {
+        if(playerPoints != null)
+        {
+            playerPoints.text = "Puntos: " + currentPoints;
+        }
+    }
+
+    public void ShowAdvice(string message, float duration = 5f)
+    {
+        if(currentAdvideCoroutine != null)
+        {
+            StopCoroutine(currentAdvideCoroutine);
+        }
+
+        currentAdvideCoroutine = StartCoroutine(ShowAdviceCoroutine(message, duration));
+    }
+
+    private IEnumerator ShowAdviceCoroutine(string message, float duration)
+    {
+        adviceText.text = message;
+        adviceText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        adviceText.text = "";
+        adviceText.gameObject.SetActive(false);
     }
 }
