@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +18,7 @@ public class PlayerLogic : MonoBehaviour
     [Header("Interacción")]
     public float interactDistance = 5f;
     public string inventoryObject = "InventoryObject"; //tag de los objetos que, al recogerlos, van al inventario
+    public string puzzleToSolve = "PuzzleToSolve"; //tag de los objetos que inician un puzzle al interactuar con ellos
     public Image crosshairImage; //referencia a la imagen de la mirilla
     public Color defaultColor = new Color(1f, 1f, 1f, 0.5f); //blanco semitransparente
     public Color interactColor = new Color(1f, 0f, 0f, 0.8f); //rojo más sólido
@@ -32,10 +35,19 @@ public class PlayerLogic : MonoBehaviour
     private bool isInventoryOpen = false; //boolean que controla si el inventario está abierto o no
     public GameObject inspectPanel; //variable para el panel de inspección de objetos
 
+    [Header("Hud Jugador")]
+    public TextMeshProUGUI adviceText;
+    public TextMeshProUGUI playerPoints;
+
+    private int currentPoints = 0;
+    private Coroutine currentAdvideCoroutine;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         playerCamera = GetComponentInChildren<Camera>();
+
+        playerPoints.text = "Puntos: ";
 
         //bloquea el cursor en el centro de la pantalla
         Cursor.lockState = CursorLockMode.Locked;
@@ -114,7 +126,7 @@ public class PlayerLogic : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
-            if (hit.collider.CompareTag(inventoryObject))
+            if (hit.collider.CompareTag(inventoryObject) || hit.collider.CompareTag(puzzleToSolve))
             {
                 crosshairImage.color = interactColor;
                 isLookingAtInteractable = true;
@@ -158,12 +170,14 @@ public class PlayerLogic : MonoBehaviour
         //el out hit guarda los datos del impacto (qué objeto se golpeó, su posición, etc...)
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
+
             if (hit.collider.CompareTag(inventoryObject)) //verifica si el objeto impactado tiene el tag InventoryObject
             {
-                Debug.Log("OBJETO RECOGIDO: " + hit.collider.name);
 
                 //obtiene el CollectableObject con su información del objeto golpeado por el ray
                 CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
+
+                ShowAdvice("OBJETO RECOGIDO: " + obj.itemData.itemName);
 
                 Debug.Log("Info del objeto: " + obj.itemData.ID + "\n"
                     + obj.itemData.itemName + "\n"
@@ -175,6 +189,10 @@ public class PlayerLogic : MonoBehaviour
                     InventoryManager.Instance.AddItem(obj.itemData);
                 }
                 Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el inventario
+            }
+            else if (hit.collider.GetComponentInParent<LockPuzzle>()) //busca en el padre del objeto golpeado (puerta o cerraduras) el script del primer puzzle, LockPuzzle
+            {
+                hit.collider.GetComponentInParent<LockPuzzle>().TryInteract();
             }
             else
             {
@@ -217,5 +235,38 @@ public class PlayerLogic : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void AddPoints(int amount)
+    {
+        currentPoints += amount;
+        UpdatePointsUI();
+    }
+
+    private void UpdatePointsUI()
+    {
+        if(playerPoints != null)
+        {
+            playerPoints.text = "Puntos: " + currentPoints;
+        }
+    }
+
+    public void ShowAdvice(string message, float duration = 5f)
+    {
+        if(currentAdvideCoroutine != null)
+        {
+            StopCoroutine(currentAdvideCoroutine);
+        }
+
+        currentAdvideCoroutine = StartCoroutine(ShowAdviceCoroutine(message, duration));
+    }
+
+    private IEnumerator ShowAdviceCoroutine(string message, float duration)
+    {
+        adviceText.text = message;
+        adviceText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        adviceText.text = "";
+        adviceText.gameObject.SetActive(false);
     }
 }
