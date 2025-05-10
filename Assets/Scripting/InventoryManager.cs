@@ -25,11 +25,21 @@ public class InventoryManager : MonoBehaviour
     [Header("Objeto equipado")]
     public Transform handSlot; //punto como si fuera la mano de Elisa
     private GameObject equippedObject; //referencia al objeto actualmente equipado
+    private string equippedItemID; //ID del objeto actualmente equipado
+
 
     //al cargar el script, se asigna this como la instancia global para usar el singleton
     void Awake()
     {
-        Instance = this;
+        //con esta sencilla comprobación, si accidentalmente hay más de un objeto en escena de este tipo, lo destruye dejando uno
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
     void Update()
@@ -96,7 +106,9 @@ public class InventoryManager : MonoBehaviour
         }
 
         currentInspectObject = Instantiate(item.prefabToInspect, inspectSpawnPoint); //instancia el objeto a inspeccionar en la posición del inspectSpawnPoint
-        currentInspectObject.AddComponent<InventoryItemPreview>().sourcePrefab = item.prefabToInspect;//usamos el script de InventoryItemPreview para guardar una preview que podernos equipar si elegimos el objeto
+        InventoryItemPreview preview = currentInspectObject.AddComponent<InventoryItemPreview>();
+        preview.sourcePrefab = item.prefabToInspect;//usamos el script de InventoryItemPreview para guardar una preview que podremos equipar si elegimos el objeto
+        preview.sourceItem = item; //aquí pasamos el ScriptableObject real para poderlo equipar, usar, etc...
 
         //asegura que el objeto esté bien posicionado y centrado dentro del spawn
         currentInspectObject.transform.localPosition = Vector3.zero;
@@ -166,11 +178,18 @@ public class InventoryManager : MonoBehaviour
         equippedObject.transform.localPosition = Vector3.zero;
         equippedObject.transform.localRotation = Quaternion.identity;
 
-        Debug.Log("Objeto equipado" + equippedObject.name);
+        //obtener el ID desde el CollectibleItem correspondiente
+        InventoryItemPreview preview = currentInspectObject.GetComponent<InventoryItemPreview>();
+        if (preview != null && preview.sourceItem != null)
+        {
+            equippedItemID = preview.sourceItem.ID;
+            Debug.Log("Objeto equipado: " + equippedItemID);
+        }
+
         CloseInspect();
     }
 
-    //método para desequipar el objeto del inventario
+    //método para desequipar el objeto del inventario y poner en null el ID del objeto equipado
     public void UnequipItem()
     {
         if (equippedObject != null)
@@ -178,7 +197,49 @@ public class InventoryManager : MonoBehaviour
             Destroy(equippedObject);
             equippedObject = null;
         }
+
+        equippedItemID = null;
     }
+
+    //getter para obtener el ID del objeto equipado
+    public string GetEquippedItemID()
+    {
+        return equippedItemID;
+    }
+
+    //getter para obtener el objeto equipado (para interactuar con los códigos de los Puzzles)
+    public GameObject GetEquippedObject()
+    {
+        return equippedObject;
+    }
+
+
+    //método para saber si tenemos un objeto equipado
+    public bool HasItemEquipped()
+    {
+        return !string.IsNullOrEmpty(equippedItemID);
+    }
+
+    //método para eliminar del inventario todos los items de un tipo
+    public void RemoveAllItemsOfType(string type)
+    {
+        inventoryItems.RemoveAll(item => item.itemType == type);
+
+        // Opcional: refrescar UI
+        foreach (Transform child in inventoryUIGrid)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (CollectibleItem item in inventoryItems)
+        {
+            GameObject slot = Instantiate(inventorySlotPrefab, inventoryUIGrid);
+            slot.GetComponentInChildren<Image>().sprite = item.icon;
+            slot.GetComponent<Button>().onClick.AddListener(() => ShowInspect(item));
+        }
+    }
+
+
 
     //método para cerrar el panel de inspección
     public void CloseInspect()

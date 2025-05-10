@@ -27,6 +27,34 @@
       "itemName": "Llave vestibulo 01",
       "description": "Una llave de aspecto antiguo y oxidado",
       "storyText": "Encontraste esta llave en el vestíbulo de la Abadía"
+    },
+    {
+      "ID": "key02",
+      "itemType": "inventoryItem",
+      "itemName": "Llave vestibulo 02",
+      "description": "Una llave de aspecto antiguo y oxidado",
+      "storyText": "Encontraste esta llave en el vestíbulo de la Abadía"
+    },
+    {
+      "ID": "key03",
+      "itemType": "inventoryItem",
+      "itemName": "Llave vestibulo 03",
+      "description": "Una llave de aspecto antiguo y oxidado",
+      "storyText": "Encontraste esta llave en el vestíbulo de la Abadía"
+    },
+    {
+      "ID": "key04",
+      "itemType": "inventoryItem",
+      "itemName": "Llave vestibulo 04",
+      "description": "Una llave de aspecto antiguo y oxidado",
+      "storyText": "Encontraste esta llave en el vestíbulo de la Abadía"
+    },
+    {
+      "ID": "key05",
+      "itemType": "inventoryItem",
+      "itemName": "Llave vestibulo 05",
+      "description": "Una llave de aspecto antiguo y oxidado",
+      "storyText": "Encontraste esta llave en el vestíbulo de la Abadía"
     }
   ]
 }
