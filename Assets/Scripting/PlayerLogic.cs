@@ -158,6 +158,7 @@ public class PlayerLogic : MonoBehaviour
         //el out hit guarda los datos del impacto (qué objeto se golpeó, su posición, etc...)
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
+
             if (hit.collider.CompareTag(inventoryObject)) //verifica si el objeto impactado tiene el tag InventoryObject
             {
                 Debug.Log("OBJETO RECOGIDO: " + hit.collider.name);
@@ -175,6 +176,29 @@ public class PlayerLogic : MonoBehaviour
                     InventoryManager.Instance.AddItem(obj.itemData);
                 }
                 Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el inventario
+            }
+            else if (hit.collider.GetComponent<LockPuzzle>()) //lógica para si golpeamos con el raycast un objeto con el script LockPuzzle (primer puzzle)
+            {
+                LockPuzzle lockPuzzle = hit.collider.GetComponent<LockPuzzle>();
+
+                if (!InventoryManager.Instance.HasItemEquipped())
+                {
+                    lockPuzzle.OpenPuzzle(); // Si no tiene una llave, abrir el puzzle
+                }
+                else
+                {
+                    // Verifica si el jugador tiene la llave correcta equipada
+                    GameObject equippedObject = InventoryManager.Instance.GetEquippedObject();
+                    KeyMetadata keyMeta = equippedObject.GetComponent<KeyMetadata>();
+                    if (keyMeta != null && keyMeta.lockIndex == lockPuzzle.GetSelectedLockIndex())
+                    {
+                        lockPuzzle.UnlockDoor(keyMeta); // La llave es correcta, desbloquea la puerta
+                    }
+                    else
+                    {
+                        lockPuzzle.ShowMessage("La llave no es correcta, prueba con otra."); // La llave no es correcta
+                    }
+                }
             }
             else
             {

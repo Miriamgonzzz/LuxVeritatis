@@ -223,42 +223,30 @@ public class InventoryManager : MonoBehaviour
     //método para eliminar objetos del inventario (si se usan en un puzzle, por ejemplo)
     public void RemoveItem(CollectibleItem itemToRemove)
     {
-        if (itemToRemove == null)
+        if (itemToRemove == null || string.IsNullOrEmpty(itemToRemove.ID))
         {
-            Debug.LogWarning("Intentando eliminar un objeto nulo del inventario.");
+            Debug.LogWarning("Intentando eliminar un objeto nulo o sin ID del inventario.");
             return;
         }
 
         bool removed = false;
 
-        // 1. Eliminar de lista principal
-        if (inventoryItems.Contains(itemToRemove))
-        {
-            inventoryItems.Remove(itemToRemove);
-            removed = true;
-        }
-        else if (secundaryItems.Contains(itemToRemove))
-        {
-            secundaryItems.Remove(itemToRemove);
-            removed = true;
-        }
-        else if (textItems.Contains(itemToRemove))
-        {
-            textItems.Remove(itemToRemove);
-            removed = true;
-        }
+        // 1. Eliminar de listas según su ID
+        removed |= RemoveFromListByID(inventoryItems, itemToRemove.ID);
+        removed |= RemoveFromListByID(secundaryItems, itemToRemove.ID);
+        removed |= RemoveFromListByID(textItems, itemToRemove.ID);
 
         if (!removed)
         {
-            Debug.LogWarning("El objeto no estaba en ninguna lista del inventario.");
+            Debug.LogWarning($"El objeto con ID '{itemToRemove.ID}' no se encontró en ninguna lista del inventario.");
             return;
         }
 
-        // 2. Eliminar el slot de UI correspondiente (solo para items del inventario)
+        // 2. Eliminar el slot de UI correspondiente
         foreach (Transform slot in inventoryUIGrid)
         {
-            Image iconImage = slot.GetComponentInChildren<Image>();
-            if (iconImage != null && iconImage.sprite == itemToRemove.icon)
+            InventoryItemPreview preview = slot.GetComponent<InventoryItemPreview>();
+            if (preview != null && preview.sourceItem != null && preview.sourceItem.ID == itemToRemove.ID)
             {
                 Destroy(slot.gameObject);
                 break;
@@ -266,12 +254,29 @@ public class InventoryManager : MonoBehaviour
         }
 
         // 3. Si está equipado, desequiparlo
-        if (equippedObject != null && equippedObject.name.Contains(itemToRemove.prefabToInspect.name))
+        if (equippedObject != null)
         {
-            UnequipItem();
+            InventoryItemPreview equippedPreview = equippedObject.GetComponent<InventoryItemPreview>();
+            if (equippedPreview != null && equippedPreview.sourceItem != null && equippedPreview.sourceItem.ID == itemToRemove.ID)
+            {
+                UnequipItem();
+            }
         }
     }
 
+
+    private bool RemoveFromListByID(List<CollectibleItem> list, string id)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i] != null && list[i].ID == id)
+            {
+                list.RemoveAt(i);
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 
