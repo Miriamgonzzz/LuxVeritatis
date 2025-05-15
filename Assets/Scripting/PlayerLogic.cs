@@ -215,6 +215,13 @@ public class PlayerLogic : MonoBehaviour
                 CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
 
                 ShowAdvice("OBJETO RECOGIDO: " + obj.itemData.itemName);
+
+                if (obj != null)
+                {
+                    //llamamos al singleton de InventoryManager para agregar ese itemData al inventario
+                    InventoryManager.Instance.AddItem(obj.itemData);
+                }
+                Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el inventario
             }
             else
             {

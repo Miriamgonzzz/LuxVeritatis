@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
+using System;
 
 public class DiaryManager : MonoBehaviour
 {
@@ -9,6 +11,10 @@ public class DiaryManager : MonoBehaviour
     public Button missionsButton;
     public Button loreButton;
     public TextMeshProUGUI diaryContentText;
+    public GameObject pageButtonPrefab;
+    public Transform pageButtonContainer;
+    private List<GameObject> activePageButtons = new List<GameObject>();
+
 
     public Image mapImage;         // Imagen para el mapa
     public Sprite mapSprite;       // Sprite del mapa
@@ -64,8 +70,46 @@ public class DiaryManager : MonoBehaviour
     {
         mapImage.gameObject.SetActive(false);
         diaryContentText.gameObject.SetActive(true);
-        diaryContentText.text = "📖 Entrada del diario:\nHoy he llegado a las ruinas antiguas. Algo extraño se siente en el aire...";
+
+        // Limpia botones anteriores
+        foreach (GameObject btn in activePageButtons)
+        {
+            Destroy(btn);
+        }
+        activePageButtons.Clear();
+
+        // Obtener páginas recogidas
+        List<CollectibleItem> pages = InventoryManager.Instance.GetTextItems();
+
+        if (pages.Count == 0)
+        {
+            diaryContentText.text = "📖 No hay páginas recogidas aún...";
+            return;
+        }
+
+        diaryContentText.text = "📖 Haz clic en una página para leerla.\n";
+
+        // Crear botones por cada página
+        foreach (CollectibleItem page in pages)
+        {
+            GameObject buttonObj = Instantiate(pageButtonPrefab, pageButtonContainer);
+            buttonObj.GetComponentInChildren<TextMeshProUGUI>().text = page.itemName;
+
+            activePageButtons.Add(buttonObj);
+
+            // Listener para mostrar la página
+            buttonObj.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                ShowPageContent(page);
+            });
+        }
     }
+
+    void ShowPageContent(CollectibleItem page)
+    {
+        diaryContentText.text = $"📖 {page.itemName}\n\n{page.storyText}";
+    }
+
 
     void ShowMap()
     {
