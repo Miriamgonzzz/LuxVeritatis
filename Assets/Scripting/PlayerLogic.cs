@@ -264,35 +264,33 @@ public class PlayerLogic : MonoBehaviour
     {
         if (isFlashlightEquipped)
         {
-            //si la linterna ya está equipada, la desequipamos
             Destroy(equippedFlashlight);
-
-            //restaura la posición original del handSlot
-            equipSlot.localRotation = originalHandSlotRotation;
-
             isFlashlightEquipped = false;
+
+            equipSlot.localRotation = originalHandSlotRotation;
         }
         else
         {
-            //si hay otro objeto equipado del inventario, lo quitamos
             InventoryManager.Instance.UnequipItem();
 
-            //guardamos la rotación actual del handSlot antes de modificarla
-            originalHandSlotRotation = equipSlot.localRotation;
+            //instanciar como hija de la cámara
+            equippedFlashlight = Instantiate(flashlightPrefab, playerCamera.transform);
 
-            //giramos el handSlot solo para la linterna
-            equipSlot.localRotation = Quaternion.Euler(90f, 0f, 0f);
+            //posicionar a la derecha de la cámara (eje X hacia la derecha, en positivo, eje Y en negativo, hacia abajo, eje Z en positivo, un poco hacia delante)
+            equippedFlashlight.transform.localPosition = new Vector3(0.8f, -0.4f, 0.5f);
 
-            //instanciamos la linterna como hijo del slot rotado
-            equippedFlashlight = Instantiate(flashlightPrefab, equipSlot);
+            //hacer que el eje 'Y' de la linterna apunte hacia delante, en -10f
+            Vector3 targetPosition = playerCamera.transform.position + playerCamera.transform.forward * -10f;
+            equippedFlashlight.transform.LookAt(targetPosition);
 
-            //posicionamos en el centro del slot y sin rotación adicional
-            equippedFlashlight.transform.localPosition = Vector3.zero;
-            equippedFlashlight.transform.localRotation = Quaternion.identity;
+            //corregimos la orientación para que apunte hacia delante
+            equippedFlashlight.transform.Rotate(-90f, 0f, 0f);
 
             isFlashlightEquipped = true;
         }
     }
+
+
 
 
     public void AddPoints(int amount)
