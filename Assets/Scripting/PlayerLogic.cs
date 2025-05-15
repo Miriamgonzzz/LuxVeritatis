@@ -19,6 +19,7 @@ public class PlayerLogic : MonoBehaviour
     public float interactDistance = 5f;
     public string inventoryObject = "InventoryObject"; //tag de los objetos que, al recogerlos, van al inventario
     public string puzzleToSolve = "PuzzleToSolve"; //tag de los objetos que inician un puzzle al interactuar con ellos
+    public string diaryPage = "DiaryPage"; //tag para detectar las páginas del diario
     public Image crosshairImage; //referencia a la imagen de la mirilla
     public Color defaultColor = new Color(1f, 1f, 1f, 0.5f); //blanco semitransparente
     public Color interactColor = new Color(1f, 0f, 0f, 0.8f); //rojo más sólido
@@ -140,7 +141,7 @@ public class PlayerLogic : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
-            if (hit.collider.CompareTag(inventoryObject) || hit.collider.CompareTag(puzzleToSolve))
+            if (hit.collider.CompareTag(inventoryObject) || hit.collider.CompareTag(puzzleToSolve) || hit.collider.CompareTag(diaryPage))
             {
                 crosshairImage.color = interactColor;
                 isLookingAtInteractable = true;
@@ -185,7 +186,7 @@ public class PlayerLogic : MonoBehaviour
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
 
-            if (hit.collider.CompareTag(inventoryObject)) //verifica si el objeto impactado tiene el tag InventoryObject
+            if (hit.collider.CompareTag(inventoryObject) && !isInventoryOpen) //verifica si el objeto impactado tiene el tag InventoryObject y el inventario está cerrado
             {
 
                 //obtiene el CollectableObject con su información del objeto golpeado por el ray
@@ -207,6 +208,13 @@ public class PlayerLogic : MonoBehaviour
             else if (hit.collider.GetComponentInParent<LockPuzzle>() && !isInventoryOpen) //busca en el padre del objeto golpeado (puerta o cerraduras) el script del primer puzzle, LockPuzzle, si el inventario está cerrado
             {
                 hit.collider.GetComponentInParent<LockPuzzle>().TryInteract();
+            }
+            else if (hit.collider.CompareTag(diaryPage) && !isInventoryOpen)
+            {
+                //obtiene el CollectableObject con su información del objeto golpeado por el ray
+                CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
+
+                ShowAdvice("OBJETO RECOGIDO: " + obj.itemData.itemName);
             }
             else
             {
