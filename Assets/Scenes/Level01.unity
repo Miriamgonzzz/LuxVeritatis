@@ -1991,6 +1991,8 @@ MonoBehaviour:
   inspectPanel: {fileID: 274695414}
   adviceText: {fileID: 146853332}
   playerPoints: {fileID: 713412406}
+  flashlightPrefab: {fileID: 6707940881548588872, guid: b63538bb8458b194c858b354b16a5a46, type: 3}
+  equipSlot: {fileID: 723717182}
 --- !u!143 &527122392
 CharacterController:
   m_ObjectHideFlags: 0

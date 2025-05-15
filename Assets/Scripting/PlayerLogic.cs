@@ -39,6 +39,13 @@ public class PlayerLogic : MonoBehaviour
     public TextMeshProUGUI adviceText;
     public TextMeshProUGUI playerPoints;
 
+    [Header("Objeto especial: Linterna")]
+    public GameObject flashlightPrefab; //prefab de la linterna
+    public Transform equipSlot; //dónde se instancia la linterna (en la "mano" del jugador)
+    private GameObject equippedFlashlight; //referencia a la linterna equipada
+    private bool isFlashlightEquipped = false; //boolean para controlar si está o no equipada
+
+    private Quaternion originalHandSlotRotation; //rotación original del HandSlot (para que solo rote 90 grados cuando se equipe la linterna, el resto de objetos que no se roten)
     private int currentPoints = 0;
     private Coroutine currentAdvideCoroutine;
 
@@ -86,6 +93,13 @@ public class PlayerLogic : MonoBehaviour
             ToggleInventory();
         }
 
+        //método para equipar la linterna
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ToggleFlashlight();
+        }
+
+        //desequipa el objeto equipado (método dentro del InventoryManager)
         if (Input.GetMouseButtonDown(1))
         {
             InventoryManager.Instance.UnequipItem();
@@ -206,6 +220,14 @@ public class PlayerLogic : MonoBehaviour
     {
         if (inventoryPanel != null)
         {
+            //si la linterna está equipada, al abrir el inventario se desequipa para evitar conflictos con otros objetos equipables
+            if (isFlashlightEquipped)
+            {
+                Destroy(equippedFlashlight);
+                equipSlot.localRotation = originalHandSlotRotation;
+                isFlashlightEquipped = false;
+            }
+
             isInventoryOpen = !isInventoryOpen; //cambia el estado del inventario
 
             inventoryPanel.SetActive(isInventoryOpen);
@@ -236,6 +258,42 @@ public class PlayerLogic : MonoBehaviour
             }
         }
     }
+
+    //método para equipar/desequipar la linterna
+    private void ToggleFlashlight()
+    {
+        if (isFlashlightEquipped)
+        {
+            //si la linterna ya está equipada, la desequipamos
+            Destroy(equippedFlashlight);
+
+            //restaura la posición original del handSlot
+            equipSlot.localRotation = originalHandSlotRotation;
+
+            isFlashlightEquipped = false;
+        }
+        else
+        {
+            //si hay otro objeto equipado del inventario, lo quitamos
+            InventoryManager.Instance.UnequipItem();
+
+            //guardamos la rotación actual del handSlot antes de modificarla
+            originalHandSlotRotation = equipSlot.localRotation;
+
+            //giramos el handSlot solo para la linterna
+            equipSlot.localRotation = Quaternion.Euler(90f, 0f, 0f);
+
+            //instanciamos la linterna como hijo del slot rotado
+            equippedFlashlight = Instantiate(flashlightPrefab, equipSlot);
+
+            //posicionamos en el centro del slot y sin rotación adicional
+            equippedFlashlight.transform.localPosition = Vector3.zero;
+            equippedFlashlight.transform.localRotation = Quaternion.identity;
+
+            isFlashlightEquipped = true;
+        }
+    }
+
 
     public void AddPoints(int amount)
     {

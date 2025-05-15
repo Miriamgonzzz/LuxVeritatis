@@ -1,6 +1,13 @@
 {
   "items": [
     {
+      "ID": "elisaLight",
+      "itemType": "inventoryItem",
+      "itemName": "Linterna",
+      "description": "La linterna de Elisa, su fiel compañera de aventuras",
+      "storyText": "Una linterna que tu padre te regaló cuando cumpliste los 10 años. Desde entonces, la has llevado siempre contigo, como tu amuleto de buena suerte"
+    },
+    {
       "ID": "magicCube001",
       "itemType": "inventoryItem",
       "itemName": "Cubo mágico",
