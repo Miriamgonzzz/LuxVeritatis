@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770457abe26a61344a2533fda4ae9c03, type: 3}
+  m_Name: DiaryPage01
+  m_EditorClassIdentifier: 
+  ID: diary001
+  icon: {fileID: 21300000, guid: 4984a88f21d45f147ba08355295c8047, type: 3}
+  prefabToInspect: {fileID: 8708476036465387436, guid: 10225f89bf6468646b91f1ffefffbf81, type: 3}
+  itemName: Entrada 01 del diario
+  itemType: textItem
+  description: "La primera p\xE1gina del diario de Alvar de Ayala"
+  storyText: "Mi nombre es Alvar de Ayala, estudioso, matem\xE1tico, astr\xF3nomo
+    y alquimista. Consejero de la Corte de nuestro buen monarca Alfonso X, por muchos
+    apodado 'el Sabio', pese a las habladur\xEDas de innumerables miembros del lugar,
+    que me tildaban de hechicero y nigromante. Corr\xEDa el a\xF1o de nuestro Se\xF1or
+    de 1125..."
