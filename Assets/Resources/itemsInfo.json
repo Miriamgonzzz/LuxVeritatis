@@ -3,58 +3,72 @@
     {
       "ID": "magicCube001",
       "itemType": "inventoryItem",
-      "itemName": "Cubo m�gico",
-      "description": "Un cubo m�gico de propiedades ignotas",
-      "storyText": "Encontraste este cubo en el vest�bulo de la Abad�a. Cuenta la leyenda que se usaba para hacer todo tipo de pruebas"
+      "itemName": "Cubo mágico",
+      "description": "Un cubo mágico de propiedades ignotas",
+      "storyText": "Encontraste este cubo en el vestíbulo de la Abadía. Cuenta la leyenda que se usaba para hacer todo tipo de pruebas"
     },
     {
       "ID": "magicCilinder001",
       "itemType": "secundaryItem",
-      "itemName": "Cilindro m�gico",
-      "description": "Un cilindro m�gico para invocar entes de otras dimensiones",
-      "storyText": "Encontraste este cilindro en el vest�bulo de la Abad�a. Cuenta la leyenda que se usaba para hacer todo tipo de pruebas"
+      "itemName": "Cilindro mágico",
+      "description": "Un cilindro mágico para invocar entes de otras dimensiones",
+      "storyText": "Encontraste este cilindro en el vestíbulo de la Abadía. Cuenta la leyenda que se usaba para hacer todo tipo de pruebas"
     },
     {
-      "ID": "text001",
+      "ID": "diary001",
       "itemType": "textItem",
       "itemName": "Entrada 01 del diario",
-      "description": "La primera p�gina del diario de Alvar de Ayala",
-      "storyText": "Mi nombre es Alvar de Ayala, y os voy a contar mi historia. Corr�a el a�o de nuestro se�or de 1123..."
+      "description": "La primera página del diario de Alvar de Ayala",
+      "storyText": "Mi nombre es Alvar de Ayala, estudioso, matemático, astrónomo y alquimista. Consejero de la Corte de nuestro buen monarca Alfonso X, por muchos apodado 'el Sabio', pese a las habladurías de innumerables miembros del lugar, que me tildaban de hechicero y nigromante. Corría el año de nuestro Señor de 1125..."
+    },
+    {
+      "ID": "diary002",
+      "itemType": "textItem",
+      "itemName": "Entrada 02 del diario",
+      "description": "La segunda página del diario de Alvar de Ayala",
+      "storyText": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+    },
+    {
+      "ID": "diary003",
+      "itemType": "textItem",
+      "itemName": "Entrada 03 del diario",
+      "description": "La tercera página del diario de Alvar de Ayala",
+      "storyText": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
     },
     {
       "ID": "key01",
       "itemType": "inventoryItem",
-      "itemName": "Llave vestibulo 01",
+      "itemName": "Llave vestíbulo 01",
       "description": "Una llave de aspecto antiguo y oxidado",
-      "storyText": "Encontraste esta llave en el vest�bulo de la Abad�a"
+      "storyText": "Encontraste esta llave en el vestíbulo de la Abadía"
     },
     {
       "ID": "key02",
       "itemType": "inventoryItem",
-      "itemName": "Llave vestibulo 02",
+      "itemName": "Llave vestíbulo 02",
       "description": "Una llave de aspecto antiguo y oxidado",
-      "storyText": "Encontraste esta llave en el vest�bulo de la Abad�a"
+      "storyText": "Encontraste esta llave en el vestíbulo de la Abadía"
     },
     {
       "ID": "key03",
       "itemType": "inventoryItem",
-      "itemName": "Llave vestibulo 03",
+      "itemName": "Llave vestíbulo 03",
       "description": "Una llave de aspecto antiguo y oxidado",
-      "storyText": "Encontraste esta llave en el vest�bulo de la Abad�a"
+      "storyText": "Encontraste esta llave en el vestíbulo de la Abadía"
     },
     {
       "ID": "key04",
       "itemType": "inventoryItem",
-      "itemName": "Llave vestibulo 04",
+      "itemName": "Llave vestíbulo 04",
       "description": "Una llave de aspecto antiguo y oxidado",
-      "storyText": "Encontraste esta llave en el vest�bulo de la Abad�a"
+      "storyText": "Encontraste esta llave en el vestíbulo de la Abadía"
     },
     {
       "ID": "key05",
       "itemType": "inventoryItem",
-      "itemName": "Llave vestibulo 05",
+      "itemName": "Llave vestíbulo 05",
       "description": "Una llave de aspecto antiguo y oxidado",
-      "storyText": "Encontraste esta llave en el vest�bulo de la Abad�a"
+      "storyText": "Encontraste esta llave en el vestíbulo de la Abadía"
     }
   ]
 }
