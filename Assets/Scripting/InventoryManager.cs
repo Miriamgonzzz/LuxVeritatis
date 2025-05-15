@@ -4,22 +4,22 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
-    //singleton, permite acceder a InventoryManager.Instance desde cualquier parte del código y asegura una única instancia global
+    //singleton, permite acceder a InventoryManager.Instance desde cualquier parte del cÃ³digo y asegura una ï¿½nica instancia global
     public static InventoryManager Instance;
 
     [Header("Inventario")]
     public Transform inventoryUIGrid; //contenedor de los slots del inventario
     public GameObject inventorySlotPrefab; //slot individual del inventario
     public GameObject inspectPanel; //panel de UI que se muestra al inspeccionar un objeto
-    public RawImage inspectRenderImage; //RawImage donde se mostrará el objeto en 3D inspeccionado y renderizado por una cámara aparte
+    public RawImage inspectRenderImage; //RawImage donde se mostrarÃ¡ el objeto en 3D inspeccionado y renderizado por una cÃ¡mara aparte
 
-    public Camera inspectCamera; //cámara que renderiza solamente el objeto a inspeccionar
-    public Transform inspectSpawnPoint; //punto dónde se instancia temporalmente ese objeto a inspeccionar
+    public Camera inspectCamera; //cÃ¡mara que renderiza solamente el objeto a inspeccionar
+    public Transform inspectSpawnPoint; //punto donde se instancia temporalmente ese objeto a inspeccionar
 
     private List<CollectibleItem> inventoryItems = new List<CollectibleItem>(); //lista de objetos del inventario
     private List<CollectibleItem> secundaryItems = new List<CollectibleItem>(); //lista de objetos coleccionables
     private List<CollectibleItem> textItems = new List<CollectibleItem>(); //lista de objetos escritos (notas y entradas del diario)
-    private GameObject currentInspectObject; //referencia al objeto que está siendo inspeccionado actualmente
+    private GameObject currentInspectObject; //referencia al objeto que estï¿½ siendo inspeccionado actualmente
     public GameObject inventoryPanel; //campo para el panel de inventario
 
     [Header("Objeto equipado")]
@@ -31,7 +31,7 @@ public class InventoryManager : MonoBehaviour
     //al cargar el script, se asigna this como la instancia global para usar el singleton
     void Awake()
     {
-        //con esta sencilla comprobación, si accidentalmente hay más de un objeto en escena de este tipo, lo destruye dejando uno
+        //con esta sencilla comprobaciï¿½n, si accidentalmente hay mï¿½s de un objeto en escena de este tipo, lo destruye dejando uno
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -44,14 +44,14 @@ public class InventoryManager : MonoBehaviour
 
     void Update()
     {
-        //verificar si el panel de inspección está activo
+        //verificar si el panel de inspecciÃ³n estï¿½ activo
         if (inspectPanel.activeSelf)
         {
-            //obtener la entrada del ratón (la rueda para hacer scroll en los objetos que inspeccionamos)
+            //obtener la entrada del ratÃ³n (la rueda para hacer scroll en los objetos que inspeccionamos)
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (Mathf.Abs(scroll) > 0.01f)
             {
-                //aumentar o reducir el tamaño del objeto inspeccionado
+                //aumentar o reducir el tamaÃ±o del objeto inspeccionado
                 if (currentInspectObject != null)
                 {
                     float scaleChange = 1f + scroll; //la cantidad de cambio en la escala 
@@ -61,34 +61,34 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    //método para añadir objetos al inventario
+    //mÃ©todo para aÃ±adir objetos al inventario
     public void AddItem(CollectibleItem newItem)
     {
         if (newItem == null) 
         {
-            Debug.LogWarning("Item nulo al intentar añadir al inventario.");
+            Debug.LogWarning("Item nulo al intentar aï¿½adir al inventario.");
             return;
         }
 
-        //dependiendo del itemType, se añade a la lista correspondiente
+        //dependiendo del itemType, se aï¿½ade a la lista correspondiente
         if (newItem.itemType == "inventoryItem")
         {
-            Debug.Log("Añadido objeto al inventario");
-            inventoryItems.Add(newItem); //añadir a la lista de objetos del inventario
+            Debug.Log("Aï¿½adido objeto al inventario");
+            inventoryItems.Add(newItem); //aÃ±adir a la lista de objetos del inventario
 
-            GameObject slot = Instantiate(inventorySlotPrefab, inventoryUIGrid); //creación de un nuevo slot del inventario como hijo de inventoryUIGrid
+            GameObject slot = Instantiate(inventorySlotPrefab, inventoryUIGrid); //creaciÃ³n de un nuevo slot del inventario como hijo de inventoryUIGrid
             slot.GetComponentInChildren<Image>().sprite = newItem.icon; //establece el icono del item (definido en el ScriptableObject) en la imagen del slot
-            slot.GetComponent<Button>().onClick.AddListener(() => ShowInspect(newItem)); //añade un listener al botón del slot para llamar al método ShowInspect con el objeto asociado
+            slot.GetComponent<Button>().onClick.AddListener(() => ShowInspect(newItem)); //aÃ±ade un listener al botï¿½n del slot para llamar al mÃ©todo ShowInspect con el objeto asociado
         }
         else if (newItem.itemType == "secundaryItem")
         {
-            Debug.Log("Añadido objeto coleccionable al diario");
-            secundaryItems.Add(newItem); //añadir a la lista de objetos coleccionables, en el diario
+            Debug.Log("Aï¿½adido objeto coleccionable al diario");
+            secundaryItems.Add(newItem); //aÃ±adir a la lista de objetos coleccionables, en el diario
         }
         else if (newItem.itemType == "textItem")
         {
-            Debug.Log("Añadido texto al diario");
-            textItems.Add(newItem); //añadir a la lista de textos del diario
+            Debug.Log("Aï¿½adido texto al diario");
+            textItems.Add(newItem); //aÃ±adir a la lista de textos del diario
         }
         else
         {
@@ -96,7 +96,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    //método para mostrar el objeto en el panel de inspección
+    //mÃ©todo para mostrar el objeto en el panel de inspecciÃ³n
     public void ShowInspect(CollectibleItem item)
     {
         //elimina cualquier objeto previamente inspeccionado
@@ -105,61 +105,61 @@ public class InventoryManager : MonoBehaviour
             Destroy(currentInspectObject);
         }
 
-        currentInspectObject = Instantiate(item.prefabToInspect, inspectSpawnPoint); //instancia el objeto a inspeccionar en la posición del inspectSpawnPoint
+        currentInspectObject = Instantiate(item.prefabToInspect, inspectSpawnPoint); //instancia el objeto a inspeccionar en la posiciÃ³n del inspectSpawnPoint
         InventoryItemPreview preview = currentInspectObject.AddComponent<InventoryItemPreview>();
         preview.sourcePrefab = item.prefabToInspect;//usamos el script de InventoryItemPreview para guardar una preview que podremos equipar si elegimos el objeto
-        preview.sourceItem = item; //aquí pasamos el ScriptableObject real para poderlo equipar, usar, etc...
+        preview.sourceItem = item; //aquÃ­ pasamos el ScriptableObject real para poderlo equipar, usar, etc...
 
-        //asegura que el objeto esté bien posicionado y centrado dentro del spawn
+        //asegura que el objeto estï¿½ bien posicionado y centrado dentro del spawn
         currentInspectObject.transform.localPosition = Vector3.zero;
         currentInspectObject.transform.localRotation = Quaternion.identity;
 
-        //si el inventario está abierto, lo cierra al abrir el panel de inspección
+        //si el inventario estï¿½ abierto, lo cierra al abrir el panel de inspecciï¿½n
         if (inventoryPanel != null)
         {
             inventoryPanel.SetActive(false);
         }
 
-        //ajusta la cámara de inspección del objeto dependiendo del tamaño del objeto a inspeccionar en sí
+        //ajusta la cÃ¡mara de inspecciÃ³n del objeto dependiendo del tamaÃ±o del objeto a inspeccionar en sÃ­
         AdjustInspectCameraToFit(currentInspectObject);
 
         //asegurarse de que el objeto puede rotar
         ObjectRotator rotator = currentInspectObject.GetComponent<ObjectRotator>();
         if (rotator == null)
         {
-            //si el objeto no tiene el script de rotación, se lo añade
+            //si el objeto no tiene el script de rotaciÃ³n, se lo aÃ±ade
             rotator = currentInspectObject.AddComponent<ObjectRotator>();
         }
 
-        //muestra el panel de inspección
+        //muestra el panel de inspecciÃ³n
         inspectPanel.SetActive(true);
             
     }
 
-    //método para ajustar la cámara de inspección del objeto dependiendo del tamaño del objeto a inspeccionar
+    //mÃ©todo para ajustar la cÃ¡mara de inspecciï¿½n del objeto dependiendo del tamaÃ±o del objeto a inspeccionar
     private void AdjustInspectCameraToFit(GameObject obj)
     {
         Renderer renderer = obj.GetComponentInChildren<Renderer>();
         if (renderer == null)
         {
-            Debug.LogWarning("No se ha encontrado un renderer sobre el que ajustar la cámara de inspección");
+            Debug.LogWarning("No se ha encontrado un renderer sobre el que ajustar la cï¿½mara de inspecciï¿½n");
             return;
         }
 
         Bounds bounds = renderer.bounds;
         float objectSize = Mathf.Max(bounds.size.x, bounds.size.y, bounds.size.z);
 
-        //distancia óptima basada en el tamaño del objeto y el campo de visión de la cámara
+        //distancia Ã³ptima basada en el tamaÃ±o del objeto y el campo de visiï¿½n de la cÃ¡mara
         float distance = objectSize / Mathf.Tan(Mathf.Deg2Rad * inspectCamera.fieldOfView * 0.5f);
 
-        //ajusta la posición en el eje Z de la cámara para alejarla lo suficiente
+        //ajusta la posiciÃ³n en el eje Z de la cÃ¡mara para alejarla lo suficiente
         Vector3 direction = inspectCamera.transform.forward;
         inspectCamera.transform.position = inspectSpawnPoint.position - direction * distance;
 
         inspectCamera.transform.LookAt(bounds.center);
     }
 
-    //método para equipar el objeto seleccionado
+    //mÃ©todo para equipar el objeto seleccionado
     public void EquipCurrentItem()
     {
         if (currentInspectObject == null)
@@ -190,7 +190,7 @@ public class InventoryManager : MonoBehaviour
         FindFirstObjectByType<PlayerLogic>().ToggleInventory();
     }
 
-    //método para desequipar el objeto del inventario y poner en null el ID del objeto equipado
+    //mÃ©todo para desequipar el objeto del inventario y poner en null el ID del objeto equipado
     public void UnequipItem()
     {
         if (equippedObject != null)
@@ -208,20 +208,20 @@ public class InventoryManager : MonoBehaviour
         return equippedItemID;
     }
 
-    //getter para obtener el objeto equipado (para interactuar con los códigos de los Puzzles)
+    //getter para obtener el objeto equipado (para interactuar con los cÃ³digos de los Puzzles)
     public GameObject GetEquippedObject()
     {
         return equippedObject;
     }
 
 
-    //método para saber si tenemos un objeto equipado
+    //mÃ©todo para saber si tenemos un objeto equipado
     public bool HasItemEquipped()
     {
         return !string.IsNullOrEmpty(equippedItemID);
     }
 
-    //método para eliminar objetos del inventario (si se usan en un puzzle, por ejemplo)
+    //mÃ©todo para eliminar objetos del inventario (si se usan en un puzzle, por ejemplo)
     public void RemoveItem(CollectibleItem itemToRemove)
     {
         if (itemToRemove == null || string.IsNullOrEmpty(itemToRemove.ID))
@@ -232,14 +232,14 @@ public class InventoryManager : MonoBehaviour
 
         bool removed = false;
 
-        // 1. Eliminar de listas según su ID
+        // 1. Eliminar de listas segÃºn su ID
         removed |= RemoveFromListByID(inventoryItems, itemToRemove.ID);
         removed |= RemoveFromListByID(secundaryItems, itemToRemove.ID);
         removed |= RemoveFromListByID(textItems, itemToRemove.ID);
 
         if (!removed)
         {
-            Debug.LogWarning($"El objeto con ID '{itemToRemove.ID}' no se encontró en ninguna lista del inventario.");
+            Debug.LogWarning($"El objeto con ID '{itemToRemove.ID}' no se encontrï¿½ en ninguna lista del inventario.");
             return;
         }
 
@@ -254,7 +254,7 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        // 3. Si está equipado, desequiparlo
+        // 3. Si estÃ¡ equipado, desequiparlo
         if (equippedObject != null)
         {
             InventoryItemPreview equippedPreview = equippedObject.GetComponent<InventoryItemPreview>();
@@ -282,19 +282,19 @@ public class InventoryManager : MonoBehaviour
 
 
 
-    //método para cerrar el panel de inspección
+    //mÃ©todo para cerrar el panel de inspecciï¿½n
     public void CloseInspect()
     {
-        //elimina el objeto inspeccionado (como cuando se abre el panel, doble comprobación por si acaso)
+        //elimina el objeto inspeccionado (como cuando se abre el panel, doble comprobaciï¿½n por si acaso)
         if (currentInspectObject != null) 
         {
             Destroy(currentInspectObject);
         }
         
-        //oculta el panel de inspección
+        //oculta el panel de inspecciï¿½n
         inspectPanel.SetActive(false);
 
-        //reabre el inventario al cerrar el panel de inspección de objeto
+        //reabre el inventario al cerrar el panel de inspecciÃ³n de objeto
         if (inventoryPanel != null)
         {
             inventoryPanel.SetActive(true);
