@@ -7,6 +7,7 @@ public class PauseManager : MonoBehaviour
     public GameObject player;
     private bool isPaused = false;
     private PlayerLogic playerController;
+    public DiaryManager diaryManager; //referencia al diaryManager para cerrar el diario si abrimos el menú de pausa
 
     void Start()
     {
@@ -40,6 +41,12 @@ public class PauseManager : MonoBehaviour
 
     public void Pause()
     {
+        //si el diario está abierto, al abrir el menú de pausa se cierra
+        if (diaryManager != null && diaryManager.IsDiaryOpen())
+        {
+            diaryManager.CloseDiary();
+        }
+
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;

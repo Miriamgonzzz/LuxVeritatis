@@ -6,6 +6,7 @@ TagManager:
   tags:
   - InventoryObject
   - PuzzleToSolve
+  - DiaryPage
   layers:
   - Default
   - TransparentFX

@@ -7,9 +7,10 @@ public class CollectibleItem : ScriptableObject
     public Sprite icon;
     public GameObject prefabToInspect;
 
-    [HideInInspector] public string itemName;
-    [HideInInspector] public string itemType;
-    [HideInInspector] public string description;
-    [HideInInspector] public string storyText;
-    
+    [Header("Datos adicionales")]
+    public string itemName;        // Título de la página
+    public string itemType;        // Debe ser "textItem" para que funcione como página del diario
+    public string description;     // Descripción breve
+    [TextArea(4, 10)] public string storyText; // Texto completo de la página
+
 }

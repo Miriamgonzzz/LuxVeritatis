@@ -87,7 +87,7 @@ public class InventoryManager : MonoBehaviour
         }
         else if (newItem.itemType == "textItem")
         {
-            Debug.Log("A�adido texto al diario");
+            Debug.Log("Añadido texto al diario");
             textItems.Add(newItem); //añadir a la lista de textos del diario
         }
         else
@@ -213,6 +213,13 @@ public class InventoryManager : MonoBehaviour
     {
         return equippedObject;
     }
+
+    //getter para obtener el listado de las hojas del diario
+    public List<CollectibleItem> GetTextItems()
+    {
+        return textItems;
+    }
+
 
 
     //método para saber si tenemos un objeto equipado
