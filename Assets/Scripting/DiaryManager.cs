@@ -139,4 +139,19 @@ public class DiaryManager : MonoBehaviour
         activePageButtons.Clear();
     }
 
+    //método para saber si está el diario abierto desde el código del PauseManager
+    public bool IsDiaryOpen()
+    {
+        return isDiaryOpen;
+    }
+
+    public void CloseDiary()
+    {
+        if (isDiaryOpen)
+        {
+            ToggleDiary(); //reutiliza el mismo método que ya gestiona el cierre
+        }
+    }
+
+
 }

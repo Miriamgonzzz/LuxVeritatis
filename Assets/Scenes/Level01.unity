@@ -6613,6 +6613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 137746561}
   player: {fileID: 527122390}
+  diaryManager: {fileID: 551491769}
 --- !u!4 &1590750071
 Transform:
   m_ObjectHideFlags: 0
