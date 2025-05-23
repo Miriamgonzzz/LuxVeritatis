@@ -87,7 +87,7 @@ public class DiaryManager : MonoBehaviour
             return;
         }
 
-        diaryContentText.text = "📖 Haz clic en una página para leerla.\n";
+        diaryContentText.text = "Haz clic en una página para leerla.\n";
 
         // Crear botones por cada página
         foreach (CollectibleItem page in pages)
