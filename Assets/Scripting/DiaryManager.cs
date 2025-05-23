@@ -72,22 +72,21 @@ public class DiaryManager : MonoBehaviour
         diaryContentText.gameObject.SetActive(true);
 
         // Limpia botones anteriores
-        foreach (GameObject btn in activePageButtons)
-        {
-            Destroy(btn);
-        }
-        activePageButtons.Clear();
+        ClearPageButtons();
 
         // Obtener páginas recogidas
         List<CollectibleItem> pages = InventoryManager.Instance.GetTextItems();
 
         if (pages.Count == 0)
         {
-            diaryContentText.text = "📖 No hay páginas recogidas aún...";
-            return;
+            diaryContentText.text = "No hay páginas recogidas aún...";
+        }
+        else
+        {
+            diaryContentText.text = "Haz clic en una página para leerla.\n";
         }
 
-        diaryContentText.text = "📖 Haz clic en una página para leerla.\n";
+        int pageNumber = 1;
 
         // Crear botones por cada página
         foreach (CollectibleItem page in pages)
@@ -97,10 +96,13 @@ public class DiaryManager : MonoBehaviour
 
             activePageButtons.Add(buttonObj);
 
-            // Listener para mostrar la página
+            //listener para mostrar la página pulsada
             buttonObj.GetComponent<Button>().onClick.AddListener(() =>
             {
+                //enseñamos el texto
                 ShowPageContent(page);
+                //ocultamos los botones/páginas
+                ClearPageButtons();
             });
         }
     }
@@ -113,6 +115,7 @@ public class DiaryManager : MonoBehaviour
 
     void ShowMap()
     {
+        ClearPageButtons();
         diaryContentText.gameObject.SetActive(false);
         mapImage.sprite = mapSprite;
         mapImage.gameObject.SetActive(true);
@@ -120,8 +123,35 @@ public class DiaryManager : MonoBehaviour
 
     void ShowLore()
     {
+        ClearPageButtons();
         mapImage.gameObject.SetActive(false);
         diaryContentText.gameObject.SetActive(true);
         diaryContentText.text = "📚 Lore:\nHace siglos, los núcleos de color mantenían el equilibrio mágico del mundo...";
     }
+
+    //método para limpiar los botones de las páginas del diario
+    void ClearPageButtons()
+    {
+        foreach (GameObject btn in activePageButtons)
+        {
+            Destroy(btn);
+        }
+        activePageButtons.Clear();
+    }
+
+    //método para saber si está el diario abierto desde el código del PauseManager
+    public bool IsDiaryOpen()
+    {
+        return isDiaryOpen;
+    }
+
+    public void CloseDiary()
+    {
+        if (isDiaryOpen)
+        {
+            ToggleDiary(); //reutiliza el mismo método que ya gestiona el cierre
+        }
+    }
+
+
 }
