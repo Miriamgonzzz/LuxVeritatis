@@ -69,6 +69,13 @@
       "itemName": "Llave vestíbulo 05",
       "description": "Una llave de aspecto antiguo y oxidado",
       "storyText": "Encontraste esta llave en el vestíbulo de la Abadía"
+    },
+    {
+      "ID": "Manivela",
+      "itemType": "inventoryItem",
+      "itemName": "Manivela",
+      "description": "Una manivela que podre subir con ella",
+      "storyText": "Encontraste esta manivela en el caustro de la Abadía"
     }
   ]
 }
