@@ -3985,8 +3985,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 257004600}
   m_HandleRect: {fileID: 257004599}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.9999999
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7306,6 +7306,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 460217234417450429, guid: 6a84769bf47abde4ebad30178a463fc5, type: 3}
+      propertyPath: pulseAmount
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4628374160669647283, guid: 6a84769bf47abde4ebad30178a463fc5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9385,6 +9389,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3657221565537114108, guid: 10225f89bf6468646b91f1ffefffbf81, type: 3}
+      propertyPath: pulseAmount
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4628374160669647283, guid: 10225f89bf6468646b91f1ffefffbf81, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
