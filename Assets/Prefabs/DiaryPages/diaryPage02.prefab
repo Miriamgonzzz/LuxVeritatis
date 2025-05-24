@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5970194426966468514
+--- !u!1 &4837549485339708724
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8734173966947458128}
-  - component: {fileID: 1004494175944691528}
-  - component: {fileID: 5770942275154528783}
-  - component: {fileID: 3657221565537114108}
-  m_Layer: 0
+  - component: {fileID: 7118128989505000311}
+  - component: {fileID: 8082967822610759795}
+  - component: {fileID: 1912182867888150515}
+  - component: {fileID: 460217234417450429}
+  m_Layer: 5
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8734173966947458128
-Transform:
+--- !u!224 &7118128989505000311
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5970194426966468514}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 6.4792724, y: 12.554008, z: 15.318854}
+  m_GameObject: {fileID: 4837549485339708724}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4628374160669647283}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &1004494175944691528
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0.5}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!108 &8082967822610759795
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5970194426966468514}
+  m_GameObject: {fileID: 4837549485339708724}
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 2
@@ -99,13 +103,13 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!114 &5770942275154528783
+--- !u!114 &1912182867888150515
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5970194426966468514}
+  m_GameObject: {fileID: 4837549485339708724}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
@@ -122,13 +126,13 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!114 &3657221565537114108
+--- !u!114 &460217234417450429
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5970194426966468514}
+  m_GameObject: {fileID: 4837549485339708724}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb4e48ed21e2f24cadaaa0d94328129, type: 3}
@@ -151,7 +155,7 @@ GameObject:
   - component: {fileID: 7844863549165267419}
   - component: {fileID: 8070561010607713590}
   m_Layer: 5
-  m_Name: diaryPage01
+  m_Name: diaryPage02
   m_TagString: DiaryPage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,7 +173,7 @@ RectTransform:
   m_LocalScale: {x: 0.06527903, y: 0.15433833, z: 0.07965583}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8734173966947458128}
+  - {fileID: 7118128989505000311}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: -90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -285,4 +289,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e3e8323f857744583fcb1215fb3023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: f8654a7966031514995b95c930628db6, type: 2}
+  itemData: {fileID: 11400000, guid: 1370f750f14bd464d9d21f37641d99ea, type: 2}

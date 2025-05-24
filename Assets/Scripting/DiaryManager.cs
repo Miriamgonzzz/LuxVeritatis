@@ -109,7 +109,7 @@ public class DiaryManager : MonoBehaviour
 
     void ShowPageContent(CollectibleItem page)
     {
-        diaryContentText.text = $"📖 {page.itemName}\n\n{page.storyText}";
+        diaryContentText.text = $"📖 {page.description}\n\n{page.storyText}";
     }
 
 
