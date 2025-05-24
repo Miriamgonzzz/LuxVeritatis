@@ -46,9 +46,13 @@ public class PlayerLogic : MonoBehaviour
     private GameObject equippedFlashlight; //referencia a la linterna equipada
     private bool isFlashlightEquipped = false; //boolean para controlar si está o no equipada
 
+    [Header("Páginas del Diario")]
+    public GameObject diaryPage2; //referencia a la segunda página del diario para hacerla aparecer cuando recojamos la primera
+
     private Quaternion originalHandSlotRotation; //rotación original del HandSlot (para que solo rote 90 grados cuando se equipe la linterna, el resto de objetos que no se roten)
     private int currentPoints = 0;
     private Coroutine currentAdvideCoroutine;
+
 
     private void Start()
     {
@@ -221,6 +225,13 @@ public class PlayerLogic : MonoBehaviour
                     //llamamos al singleton de InventoryManager para agregar ese itemData al inventario
                     InventoryManager.Instance.AddItem(obj.itemData);
                 }
+
+                //activa la segunda página del diario (oculta hasta recoger la primera)
+                if (diaryPage2 != null)
+                {
+                    diaryPage2.SetActive(true);
+                }
+
                 Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el inventario
             }
             else
