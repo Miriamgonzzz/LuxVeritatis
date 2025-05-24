@@ -24,6 +24,19 @@ public class SimonDice : MonoBehaviour
     private bool alreadyUsed = false;
     private string equippedItemID;
 
+    public MonoBehaviour cameraController;
+    public MonoBehaviour playerMovement;
+
+    private Color[] originalColors;
+
+    void Start()
+    {
+        originalColors = new Color[colorButtons.Length];
+        for (int i = 0; i < colorButtons.Length; i++)
+        {
+            originalColors[i] = colorButtons[i].GetComponent<Image>().color;
+        }
+    }
     public void TryInteract()
     {
         if (alreadyUsed) return;
@@ -45,7 +58,13 @@ public class SimonDice : MonoBehaviour
             FindFirstObjectByType<PlayerLogic>().AddPoints(puzzlePoints);
 
             crankObject.SetActive(true);
+
+            cameraController.enabled = false;
+            playerMovement.enabled = false;
             simonCanvas.SetActive(true);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
             sequence.Clear();
             currentPhase = 0;
@@ -68,7 +87,18 @@ public class SimonDice : MonoBehaviour
         playerTurn = false;
         playerInput.Clear();
         currentStep = 0;
-        sequence.Add(Random.Range(0, colorButtons.Length));
+
+        if (sequence.Count == 0)
+        {
+            // Inicia con dos colores aleatorios
+            sequence.Add(Random.Range(0, colorButtons.Length));
+            sequence.Add(Random.Range(0, colorButtons.Length));
+        }
+        else
+        {
+            // Añade solo uno más en las siguientes rondas
+            sequence.Add(Random.Range(0, colorButtons.Length));
+        }
 
         yield return new WaitForSeconds(1f);
 
@@ -77,7 +107,7 @@ public class SimonDice : MonoBehaviour
             int index = sequence[i];
             HighlightButton(index);
             yield return new WaitForSeconds(0.6f);
-            UnhighlightButton(index);
+            //UnhighlightButton(index);
             yield return new WaitForSeconds(0.3f);
         }
 
@@ -103,6 +133,10 @@ public class SimonDice : MonoBehaviour
                     FindFirstObjectByType<PlayerLogic>().ShowAdvice("¡Puzzle completado!");
                     FindFirstObjectByType<PlayerLogic>().AddPoints(puzzlePoints);
                     simonCanvas.SetActive(false);
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    cameraController.enabled = true;
+                    playerMovement.enabled = true;
                 }
                 else
                 {
@@ -123,11 +157,20 @@ public class SimonDice : MonoBehaviour
 
     void HighlightButton(int index)
     {
-        colorButtons[index].GetComponent<Image>().color *= 1.5f;
+        Image img = colorButtons[index].GetComponent<Image>();
+        StartCoroutine(FlashButton(img, originalColors[index]));
     }
 
-    void UnhighlightButton(int index)
+    /*void UnhighlightButton(int index)
     {
         colorButtons[index].GetComponent<Image>().color /= 1.5f;
+    }*/
+
+    IEnumerator FlashButton(Image buttonImage, Color originalColor)
+    {
+        Color highlightColor = Color.Lerp(originalColor, Color.white, 0.5f); // Mezcla el original con blanco (más brillante)
+        buttonImage.color = highlightColor;
+        yield return new WaitForSeconds(0.4f);
+        buttonImage.color = originalColor;
     }
 }
