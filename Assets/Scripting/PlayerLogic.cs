@@ -226,8 +226,9 @@ public class PlayerLogic : MonoBehaviour
                     InventoryManager.Instance.AddItem(obj.itemData);
                 }
 
-                //activa la segunda página del diario (oculta hasta recoger la primera)
-                if (diaryPage2 != null)
+                //si el ID de la página recogida es la primera, activamos la segunda página (esta lógica la podemos usar para ir controlando 
+                //la aparición de las siguiente páginas en orden)
+                if (obj.itemData.ID == "diary001")
                 {
                     diaryPage2.SetActive(true);
                 }
