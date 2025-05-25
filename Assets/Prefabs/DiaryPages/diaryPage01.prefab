@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pulseSpeed: 2
-  pulseAmount: 0.5
+  pulseAmount: 3
 --- !u!1 &8708476036465387436
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 1545505387845674836}
   - component: {fileID: 4849195275766477279}
   - component: {fileID: 4793413811527400372}
+  - component: {fileID: 7823468449110657597}
   m_Layer: 0
   m_Name: Manivela
-  m_TagString: Untagged
+  m_TagString: InventoryObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,13 +28,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2092073051844958324}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.50495553, y: 0.49499485, z: -0.50495553, w: -0.4949949}
+  m_LocalRotation: {x: -0.5049537, y: -0.49499682, z: 0.5049537, w: 0.49499682}
   m_LocalPosition: {x: 83.56999, y: 13.48, z: 2.4}
-  m_LocalScale: {x: 18.354902, y: 18.354902, z: 55.180676}
+  m_LocalScale: {x: 7.9719014, y: 7.9719014, z: 23.966072}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 91.141}
 --- !u!33 &1545505387845674836
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -109,3 +110,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7387706064836869012, guid: 1142dc73f1d75b04da544286430739fe, type: 3}
+--- !u!114 &7823468449110657597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092073051844958324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92e3e8323f857744583fcb1215fb3023, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: cc45cc4fc829707409fa275d1cd62699, type: 2}
