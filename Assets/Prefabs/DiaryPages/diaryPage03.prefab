@@ -155,12 +155,12 @@ GameObject:
   - component: {fileID: 7844863549165267419}
   - component: {fileID: 8070561010607713590}
   m_Layer: 5
-  m_Name: diaryPage02
+  m_Name: diaryPage03
   m_TagString: DiaryPage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4628374160669647283
 RectTransform:
   m_ObjectHideFlags: 0
@@ -289,4 +289,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e3e8323f857744583fcb1215fb3023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 1370f750f14bd464d9d21f37641d99ea, type: 2}
+  itemData: {fileID: 11400000, guid: e22181b36a07d104da8348cf4f043a05, type: 2}
