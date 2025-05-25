@@ -27,6 +27,8 @@ public class SimonDice : MonoBehaviour
     public MonoBehaviour cameraController;
     public MonoBehaviour playerMovement;
 
+    public GameObject diaryPage3;
+
     private Color[] originalColors;
 
     void Start()
@@ -137,6 +139,7 @@ public class SimonDice : MonoBehaviour
                     Cursor.visible = false;
                     cameraController.enabled = true;
                     playerMovement.enabled = true;
+                    diaryPage3.SetActive(true);
                 }
                 else
                 {
