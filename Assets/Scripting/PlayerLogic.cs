@@ -39,6 +39,9 @@ public class PlayerLogic : MonoBehaviour
     [Header("Hud Jugador")]
     public TextMeshProUGUI adviceText;
     public TextMeshProUGUI playerPoints;
+    public bool isHudActive = true;
+    public AudioSource audioSource; // arrastra el AudioSource aquí (puede estar en el jugador)
+    public AudioClip stepsClip;     // arrastra aquí tu MP3 convertido a AudioClip
 
     [Header("Objeto especial: Linterna")]
     public GameObject flashlightPrefab; //prefab de la linterna
@@ -53,6 +56,8 @@ public class PlayerLogic : MonoBehaviour
     private int currentPoints = 0;
     private Coroutine currentAdvideCoroutine;
 
+    [Header("HUD")]
+    public GameObject playerHUD; // Asigna en el Inspector el GameObject que contiene el texto de Puntos u otros elementos del HUD
 
     private void Start()
     {
@@ -119,6 +124,19 @@ public class PlayerLogic : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * moveSpeed * Time.deltaTime);
+
+        // Si te estás moviendo y no suena ya
+        if (move.magnitude > 0.1f && !audioSource.isPlaying)
+        {
+            audioSource.clip = stepsClip;
+            audioSource.Play();
+        }
+
+        // Si NO te estás moviendo, parar pasos
+        if (move.magnitude <= 0.1f && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
     }
 
     //método para la rotación de la cámara en primera persona
@@ -251,6 +269,12 @@ public class PlayerLogic : MonoBehaviour
     {
         if (inventoryPanel != null)
         {
+            
+            if (playerHUD != null)
+            {
+                isHudActive = !isHudActive;
+                playerHUD.SetActive(isHudActive);
+            }
             //si la linterna está equipada, al abrir el inventario se desequipa para evitar conflictos con otros objetos equipables
             if (isFlashlightEquipped)
             {
