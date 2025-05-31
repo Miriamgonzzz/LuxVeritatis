@@ -40,6 +40,9 @@ public class InventoryManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        SetupInventoryLayout();
+
     }
 
     void Update()
@@ -64,37 +67,56 @@ public class InventoryManager : MonoBehaviour
     //método para añadir objetos al inventario
     public void AddItem(CollectibleItem newItem)
     {
-        if (newItem == null) 
+        if (newItem == null)
         {
-            Debug.LogWarning("Item nulo al intentar a�adir al inventario.");
+            Debug.LogWarning("Item nulo al intentar añadir al inventario.");
             return;
         }
 
-        //dependiendo del itemType, se a�ade a la lista correspondiente
         if (newItem.itemType == "inventoryItem")
         {
-            Debug.Log("A�adido objeto al inventario");
-            inventoryItems.Add(newItem); //añadir a la lista de objetos del inventario
+            Debug.Log("Añadido objeto al inventario");
+            inventoryItems.Add(newItem);
 
-            GameObject slot = Instantiate(inventorySlotPrefab, inventoryUIGrid); //creación de un nuevo slot del inventario como hijo de inventoryUIGrid
-            slot.GetComponentInChildren<Image>().sprite = newItem.icon; //establece el icono del item (definido en el ScriptableObject) en la imagen del slot
-            slot.GetComponent<Button>().onClick.AddListener(() => ShowInspect(newItem)); //añade un listener al bot�n del slot para llamar al método ShowInspect con el objeto asociado
+            // Estimar columnas posibles para detectar si es la primera fila
+            int columnasEstimadas = Mathf.FloorToInt(
+                inventoryUIGrid.GetComponent<RectTransform>().rect.width / (100 + 10)
+            ); // 100 tamaño, 10 spacing
+            int index = inventoryItems.Count - 1;
+
+            // Crear wrapper contenedor para aplicar padding solo si es de la primera fila
+            GameObject slotWrapper = new GameObject("SlotWrapper", typeof(RectTransform));
+            slotWrapper.transform.SetParent(inventoryUIGrid, false);
+
+            VerticalLayoutGroup layoutGroup = slotWrapper.AddComponent<VerticalLayoutGroup>();
+            layoutGroup.childAlignment = TextAnchor.UpperCenter;
+            layoutGroup.spacing = 0;
+            layoutGroup.padding = new RectOffset(0, 0, (index < columnasEstimadas ? 40 : 0), 0);
+
+            // Instanciar el slot dentro del wrapper
+            GameObject slot = Instantiate(inventorySlotPrefab, slotWrapper.transform);
+            slot.GetComponentInChildren<Image>().sprite = newItem.icon;
+            slot.GetComponent<Button>().onClick.AddListener(() => ShowInspect(newItem));
+
+            // Aumentar tamaño visual del slot
+            RectTransform slotRect = slot.GetComponent<RectTransform>();
+            slotRect.sizeDelta = new Vector2(200, 200); // mismo tamaño que en SetupInventoryLayout
         }
         else if (newItem.itemType == "secundaryItem")
         {
-            Debug.Log("A�adido objeto coleccionable al diario");
-            secundaryItems.Add(newItem); //añadir a la lista de objetos coleccionables, en el diario
+            secundaryItems.Add(newItem);
         }
         else if (newItem.itemType == "textItem")
         {
-            Debug.Log("Añadido texto al diario");
-            textItems.Add(newItem); //añadir a la lista de textos del diario
+            textItems.Add(newItem);
         }
         else
         {
             Debug.LogWarning("Item con un tipo desconocido: " + newItem.itemType);
         }
     }
+
+
 
     //método para mostrar el objeto en el panel de inspección
     public void ShowInspect(CollectibleItem item)
@@ -307,4 +329,26 @@ public class InventoryManager : MonoBehaviour
             inventoryPanel.SetActive(true);
         }
     }
+
+    private void SetupInventoryLayout()
+    {
+        GridLayoutGroup grid = inventoryUIGrid.GetComponent<GridLayoutGroup>();
+        if (grid == null)
+            grid = inventoryUIGrid.gameObject.AddComponent<GridLayoutGroup>();
+
+        grid.padding = new RectOffset(20, 20, 20, 20);
+        grid.spacing = new Vector2(10, 10);
+        grid.cellSize = new Vector2(200, 200);
+        grid.startAxis = GridLayoutGroup.Axis.Horizontal;
+        grid.childAlignment = TextAnchor.UpperLeft;
+        grid.constraint = GridLayoutGroup.Constraint.Flexible;
+
+        // Aumentar altura para que quepa el padding top extra (por ejemplo, 100 extra)
+        RectTransform gridRect = inventoryUIGrid.GetComponent<RectTransform>();
+        gridRect.sizeDelta = new Vector2(gridRect.sizeDelta.x, gridRect.sizeDelta.y + 100);
+    }
+
+
+
+
 }
