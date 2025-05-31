@@ -8,6 +8,7 @@ public class LockPuzzle : MonoBehaviour
 
     [Header("Puerta")]
     public GameObject door; //la puerta que se desactiva al abrirse (hay que cambiarla por una animación)
+    public Animator animator;
 
     private int puzzlePoints = 100;
 
@@ -75,7 +76,7 @@ public class LockPuzzle : MonoBehaviour
         if (door != null)
         {
             lockVariants[selectedLockIndex].SetActive(false);
-            door.SetActive(false);
+            animator.SetBool("Abrir",true);
         }
         else
         {
