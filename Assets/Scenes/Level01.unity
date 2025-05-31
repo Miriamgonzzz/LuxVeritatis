@@ -3244,6 +3244,7 @@ MonoBehaviour:
   flashlightPrefab: {fileID: 6707940881548588872, guid: b63538bb8458b194c858b354b16a5a46, type: 3}
   equipSlot: {fileID: 723717182}
   diaryPage2: {fileID: 831164915}
+  playerHUD: {fileID: 713412404}
 --- !u!143 &527122392
 CharacterController:
   m_ObjectHideFlags: 0
@@ -9708,6 +9709,7 @@ MonoBehaviour:
   inspectSpawnPoint: {fileID: 177094715}
   inventoryPanel: {fileID: 202077037}
   handSlot: {fileID: 723717182}
+  playerHUD: {fileID: 713412404}
 --- !u!4 &1595141541
 Transform:
   m_ObjectHideFlags: 0

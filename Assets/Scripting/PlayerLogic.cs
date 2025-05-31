@@ -39,6 +39,7 @@ public class PlayerLogic : MonoBehaviour
     [Header("Hud Jugador")]
     public TextMeshProUGUI adviceText;
     public TextMeshProUGUI playerPoints;
+    public bool isHudActive = true;
 
     [Header("Objeto especial: Linterna")]
     public GameObject flashlightPrefab; //prefab de la linterna
@@ -53,6 +54,8 @@ public class PlayerLogic : MonoBehaviour
     private int currentPoints = 0;
     private Coroutine currentAdvideCoroutine;
 
+    [Header("HUD")]
+    public GameObject playerHUD; // Asigna en el Inspector el GameObject que contiene el texto de Puntos u otros elementos del HUD
 
     private void Start()
     {
@@ -251,6 +254,12 @@ public class PlayerLogic : MonoBehaviour
     {
         if (inventoryPanel != null)
         {
+            
+            if (playerHUD != null)
+            {
+                isHudActive = !isHudActive;
+                playerHUD.SetActive(isHudActive);
+            }
             //si la linterna está equipada, al abrir el inventario se desequipa para evitar conflictos con otros objetos equipables
             if (isFlashlightEquipped)
             {

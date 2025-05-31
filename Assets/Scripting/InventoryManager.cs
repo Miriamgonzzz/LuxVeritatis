@@ -27,6 +27,10 @@ public class InventoryManager : MonoBehaviour
     private GameObject equippedObject; //referencia al objeto actualmente equipado
     private string equippedItemID; //ID del objeto actualmente equipado
 
+    [Header("HUD")]
+    public GameObject playerHUD; // Asigna en el Inspector el GameObject que contiene el texto de Puntos u otros elementos del HUD
+
+
 
     //al cargar el script, se asigna this como la instancia global para usar el singleton
     void Awake()
@@ -155,7 +159,9 @@ public class InventoryManager : MonoBehaviour
 
         //muestra el panel de inspección
         inspectPanel.SetActive(true);
-            
+       
+
+
     }
 
     //método para ajustar la cámara de inspecci�n del objeto dependiendo del tamaño del objeto a inspeccionar
@@ -323,6 +329,13 @@ public class InventoryManager : MonoBehaviour
         //oculta el panel de inspecci�n
         inspectPanel.SetActive(false);
 
+        // Mostrar HUD del jugador al cerrar la inspección
+        if (playerHUD != null)
+        {
+            playerHUD.SetActive(true);
+        }
+
+
         //reabre el inventario al cerrar el panel de inspección de objeto
         if (inventoryPanel != null)
         {
@@ -332,6 +345,8 @@ public class InventoryManager : MonoBehaviour
 
     private void SetupInventoryLayout()
     {
+        
+
         GridLayoutGroup grid = inventoryUIGrid.GetComponent<GridLayoutGroup>();
         if (grid == null)
             grid = inventoryUIGrid.gameObject.AddComponent<GridLayoutGroup>();
