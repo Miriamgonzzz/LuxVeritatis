@@ -40,6 +40,8 @@ public class PlayerLogic : MonoBehaviour
     public TextMeshProUGUI adviceText;
     public TextMeshProUGUI playerPoints;
     public bool isHudActive = true;
+    public AudioSource audioSource; // arrastra el AudioSource aquí (puede estar en el jugador)
+    public AudioClip stepsClip;     // arrastra aquí tu MP3 convertido a AudioClip
 
     [Header("Objeto especial: Linterna")]
     public GameObject flashlightPrefab; //prefab de la linterna
@@ -122,6 +124,19 @@ public class PlayerLogic : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * moveSpeed * Time.deltaTime);
+
+        // Si te estás moviendo y no suena ya
+        if (move.magnitude > 0.1f && !audioSource.isPlaying)
+        {
+            audioSource.clip = stepsClip;
+            audioSource.Play();
+        }
+
+        // Si NO te estás moviendo, parar pasos
+        if (move.magnitude <= 0.1f && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
     }
 
     //método para la rotación de la cámara en primera persona
