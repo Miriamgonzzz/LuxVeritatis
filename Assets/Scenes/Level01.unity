@@ -3248,6 +3248,7 @@ MonoBehaviour:
   flashlightPrefab: {fileID: 6707940881548588872, guid: b63538bb8458b194c858b354b16a5a46, type: 3}
   equipSlot: {fileID: 723717182}
   diaryPage2: {fileID: 831164915}
+  diaryPanel: {fileID: 1284581797}
   playerHUD: {fileID: 713412404}
 --- !u!143 &527122392
 CharacterController:
@@ -3697,6 +3698,7 @@ MonoBehaviour:
   pageButtonContainer: {fileID: 1827587504}
   mapImage: {fileID: 1332011494}
   mapSprite: {fileID: 21300000, guid: a15ef00227a20084d95ea4f1f866a1c9, type: 3}
+  inventoryPanel: {fileID: 202077037}
 --- !u!4 &551491770
 Transform:
   m_ObjectHideFlags: 0

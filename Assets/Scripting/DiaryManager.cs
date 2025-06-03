@@ -16,11 +16,14 @@ public class DiaryManager : MonoBehaviour
     private List<GameObject> activePageButtons = new List<GameObject>();
 
 
-    public Image mapImage;         // Imagen para el mapa
-    public Sprite mapSprite;       // Sprite del mapa
+    public Image mapImage;         //imagen para el mapa
+    public Sprite mapSprite;       //sprite del mapa
 
     private bool isDiaryOpen = false;
-    private PlayerLogic playerLogic; // Referencia al jugador
+    private PlayerLogic playerLogic; //referencia al jugador
+
+    [Header("Inventario")]
+    public GameObject inventoryPanel; //referencia al inventario para evitar que el diario se pueda abrir si tenemos el inventario abierto
 
     void Start()
     {
@@ -40,7 +43,15 @@ public class DiaryManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            ToggleDiary();
+            //evita abrir el diario si el inventario está activo
+            bool isInventoryOpen = inventoryPanel != null && inventoryPanel.activeSelf;
+
+            //solo permitir abrir el diario si el juego no está pausado Y el inventario NO está abierto,
+            //o permitir cerrarlo si ya está abierto
+            if ((!isInventoryOpen && Time.timeScale != 0f) || isDiaryOpen)
+            {
+                ToggleDiary();
+            }
         }
     }
 
