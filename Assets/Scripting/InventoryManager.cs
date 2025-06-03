@@ -320,7 +320,7 @@ public class InventoryManager : MonoBehaviour
     //método para cerrar el panel de inspecci�n
     public void CloseInspect()
     {
-        //elimina el objeto inspeccionado (como cuando se abre el panel, doble comprobaci�n por si acaso)
+        //elimina el objeto inspeccionado (como cuando se abre el panel, doble comprobación por si acaso)
         if (currentInspectObject != null) 
         {
             Destroy(currentInspectObject);
