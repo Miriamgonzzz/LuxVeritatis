@@ -3248,7 +3248,6 @@ MonoBehaviour:
   flashlightPrefab: {fileID: 6707940881548588872, guid: b63538bb8458b194c858b354b16a5a46, type: 3}
   equipSlot: {fileID: 723717182}
   diaryPage2: {fileID: 831164915}
-  diaryPanel: {fileID: 1284581797}
   playerHUD: {fileID: 713412404}
 --- !u!143 &527122392
 CharacterController:
@@ -4301,10 +4300,10 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 3
-  m_Range: 10
-  m_SpotAngle: 42.3128
-  m_InnerSpotAngle: 30
+  m_Intensity: 5
+  m_Range: 18.812012
+  m_SpotAngle: 177.32996
+  m_InnerSpotAngle: 44.32081
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -6705,7 +6704,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 257004599}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
