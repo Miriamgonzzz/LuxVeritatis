@@ -27,6 +27,12 @@ public class InventoryManager : MonoBehaviour
     private GameObject equippedObject; //referencia al objeto actualmente equipado
     private string equippedItemID; //ID del objeto actualmente equipado
 
+    [Header("Límites de zoom para objetos inspeccionados")]
+    public float minInspectScale = 0.5f;
+    public float maxInspectScale = 1.5f;
+    private float inspectScaleFactor = 1f;
+    private Vector3 initialInspectScale;
+
     [Header("HUD")]
     public GameObject playerHUD; // Asigna en el Inspector el GameObject que contiene el texto de Puntos u otros elementos del HUD
 
@@ -61,8 +67,15 @@ public class InventoryManager : MonoBehaviour
                 //aumentar o reducir el tamaño del objeto inspeccionado
                 if (currentInspectObject != null)
                 {
-                    float scaleChange = 1f + scroll; //la cantidad de cambio en la escala 
-                    currentInspectObject.transform.localScale *= scaleChange; //cambiar la escala del objeto
+                    //modifica el factor de escala del objeto, no la escala del objeto inspeccionado en sí. Esto evita que el objeto inspeccionado
+                    //se deforme si hacemos mucho zoom
+                    inspectScaleFactor *= 1f + scroll;
+
+                    //clampea la escala dentro del rango permitido (no permite que la escala del objeto, al hacer zoom con el ratón, se salga
+                    //de los límites establecidos. Asi evitamos que se haga gigantesco o que se encoja hasta el infinito)
+                    inspectScaleFactor = Mathf.Clamp(inspectScaleFactor, minInspectScale, maxInspectScale);
+
+                    currentInspectObject.transform.localScale = initialInspectScale * inspectScaleFactor;
                 }
             }
         }
@@ -136,11 +149,15 @@ public class InventoryManager : MonoBehaviour
         preview.sourcePrefab = item.prefabToInspect;//usamos el script de InventoryItemPreview para guardar una preview que podremos equipar si elegimos el objeto
         preview.sourceItem = item; //aquí pasamos el ScriptableObject real para poderlo equipar, usar, etc...
 
-        //asegura que el objeto est� bien posicionado y centrado dentro del spawn
+        //guarda la escala del objeto a inspeccionar
+        initialInspectScale = currentInspectObject.transform.localScale;
+        inspectScaleFactor = 1f; //el factor de la escala es 1 de inicio, y aumenta o desciende con el zoom in y zoom out que hagamos
+
+        //asegura que el objeto esté bien posicionado y centrado dentro del spawn
         currentInspectObject.transform.localPosition = Vector3.zero;
         currentInspectObject.transform.localRotation = Quaternion.identity;
 
-        //si el inventario est� abierto, lo cierra al abrir el panel de inspecci�n
+        //si el inventario está abierto, lo cierra al abrir el panel de inspección
         if (inventoryPanel != null)
         {
             inventoryPanel.SetActive(false);
@@ -164,15 +181,10 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-    //método para ajustar la cámara de inspecci�n del objeto dependiendo del tamaño del objeto a inspeccionar
+    //método para ajustar la cámara de inspección del objeto dependiendo del tamaño del objeto a inspeccionar
     private void AdjustInspectCameraToFit(GameObject obj)
     {
         Renderer renderer = obj.GetComponentInChildren<Renderer>();
-        if (renderer == null)
-        {
-            Debug.LogWarning("No se ha encontrado un renderer sobre el que ajustar la c�mara de inspecci�n");
-            return;
-        }
 
         Bounds bounds = renderer.bounds;
         float objectSize = Mathf.Max(bounds.size.x, bounds.size.y, bounds.size.z);
@@ -215,7 +227,6 @@ public class InventoryManager : MonoBehaviour
         }
 
         CloseInspect();
-        FindFirstObjectByType<PlayerLogic>().ToggleInventory();
     }
 
     //método para desequipar el objeto del inventario y poner en null el ID del objeto equipado
@@ -317,7 +328,7 @@ public class InventoryManager : MonoBehaviour
 
 
 
-    //método para cerrar el panel de inspecci�n
+    //método para cerrar el panel de inspección
     public void CloseInspect()
     {
         //elimina el objeto inspeccionado (como cuando se abre el panel, doble comprobación por si acaso)
@@ -326,21 +337,16 @@ public class InventoryManager : MonoBehaviour
             Destroy(currentInspectObject);
         }
         
-        //oculta el panel de inspecci�n
+        //oculta el panel de inspección
         inspectPanel.SetActive(false);
 
-        // Mostrar HUD del jugador al cerrar la inspección
+        //mostrar HUD del jugador al cerrar la inspección
         if (playerHUD != null)
         {
             playerHUD.SetActive(true);
         }
 
-
-        //reabre el inventario al cerrar el panel de inspección de objeto
-        if (inventoryPanel != null)
-        {
-            inventoryPanel.SetActive(true);
-        }
+        FindFirstObjectByType<PlayerLogic>().ToggleInventory();
     }
 
     private void SetupInventoryLayout()
