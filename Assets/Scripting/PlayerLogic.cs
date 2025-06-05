@@ -57,7 +57,7 @@ public class PlayerLogic : MonoBehaviour
     private Coroutine currentAdvideCoroutine;
 
     [Header("HUD")]
-    public GameObject playerHUD; // Asigna en el Inspector el GameObject que contiene el texto de Puntos u otros elementos del HUD
+    public GameObject playerHUD; //asigna en el Inspector el GameObject que contiene el texto de puntos u otros elementos del HUD para hacer que desaparezcan cuando abrimos el inventario
 
     private void Start()
     {
