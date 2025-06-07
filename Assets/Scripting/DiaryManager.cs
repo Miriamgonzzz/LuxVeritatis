@@ -137,7 +137,7 @@ public class DiaryManager : MonoBehaviour
         ClearPageButtons();
         mapImage.gameObject.SetActive(false);
         diaryContentText.gameObject.SetActive(true);
-        diaryContentText.text = "📚 Lore:\nHace siglos, los núcleos de color mantenían el equilibrio mágico del mundo...";
+        diaryContentText.text = "Aún no has recogido ningún coleccionable";
     }
 
     //método para limpiar los botones de las páginas del diario
