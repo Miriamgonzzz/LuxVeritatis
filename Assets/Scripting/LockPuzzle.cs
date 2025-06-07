@@ -7,7 +7,7 @@ public class LockPuzzle : MonoBehaviour
     private int selectedLockIndex = -1;
 
     [Header("Puerta")]
-    public GameObject door; //la puerta que se desactiva al abrirse (hay que cambiarla por una animación)
+    public GameObject door; //la puerta que se abre al solucionar el puzzle
     public Animator animator;
 
     private int puzzlePoints = 100;
@@ -70,7 +70,7 @@ public class LockPuzzle : MonoBehaviour
         }
     }
 
-    //método para desbloquear la puerta (aqui hay que poner alguna animación)
+    //método para abrir la puerta
     public void UnlockDoor()
     {
         if (door != null)
