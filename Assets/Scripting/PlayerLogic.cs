@@ -224,6 +224,7 @@ public class PlayerLogic : MonoBehaviour
                 {
                     //llamamos al singleton de InventoryManager para agregar ese itemData al inventario
                     InventoryManager.Instance.AddItem(obj.itemData);
+                    AddPoints(5); //ganamos 5 puntos por objeto recogido
                 }
                 Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el inventario
             }
@@ -246,6 +247,7 @@ public class PlayerLogic : MonoBehaviour
                 {
                     //llamamos al singleton de InventoryManager para agregar ese itemData al inventario
                     InventoryManager.Instance.AddItem(obj.itemData);
+                    AddPoints(5); //ganamos 5 puntos por nota recogido
                 }
 
                 //si el ID de la página recogida es la primera, activamos la segunda página (esta lógica la podemos usar para ir controlando 
