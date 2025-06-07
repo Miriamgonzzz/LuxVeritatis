@@ -10,9 +10,12 @@ public class LockPuzzle : MonoBehaviour
     public GameObject door; //la puerta que se abre al solucionar el puzzle
     public Animator animator;
 
-    public AudioSource audioSource;
-    public AudioClip openDoorSound;
-    public AudioClip closeDoorSound;
+    [Header("SFX")]
+    public AudioSource narrationSource; //audioSource para las frases de Elisa
+    public AudioClip wrongObjectPhrase; //clip de objeto incorrecto (Script de puzzle cerradura)
+    public AudioSource audioSource; //source para los audios de sonidos
+    public AudioClip openDoorSound; //sonido de puerta abriéndose
+    public AudioClip closeDoorSound; //sonido de puerta bloqueada
 
     private int puzzlePoints = 100;
 
@@ -68,6 +71,7 @@ public class LockPuzzle : MonoBehaviour
             {
                 FindFirstObjectByType<PlayerLogic>().ShowAdvice("La llave no coincide con la cerradura");
                 AudioSource.PlayClipAtPoint(closeDoorSound, transform.position);
+                AudioSource.PlayClipAtPoint(wrongObjectPhrase, transform.position);
                 puzzlePoints -= 10;
             }
         }

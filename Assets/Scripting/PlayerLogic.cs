@@ -40,10 +40,16 @@ public class PlayerLogic : MonoBehaviour
     public TextMeshProUGUI adviceText;
     public TextMeshProUGUI playerPoints;
     public bool isHudActive = true;
-    public AudioSource audioSource; //arrastra el AudioSource aquí (puede estar en el jugador)
+
+    [Header("SFX")]
+    public AudioSource audioSource; //audioSource para los sonidos
     public AudioClip stepsClip;     //clip de sonido de pasos de Elisa
     public AudioClip takeObject;//clip de sonido al coger objetos
     public AudioClip takePage; //clip de sonido al coger páginas
+    public AudioSource narrationSource; //audioSource para las frases de Elisa
+    public AudioClip lookNotePhrase; //clip para fijarse en la nota del fondo
+    public AudioClip lumosPhrase; //clip de encender linterna
+    public AudioClip checkDiaryPhrase; //clip de revisar diario
 
     [Header("Objeto especial: Linterna")]
     public GameObject flashlightPrefab; //prefab de la linterna
@@ -65,6 +71,8 @@ public class PlayerLogic : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         playerCamera = GetComponentInChildren<Camera>();
+        narrationSource.clip = lookNotePhrase;
+        narrationSource.Play();
 
         playerPoints.text = "Puntos: ";
 
@@ -217,7 +225,6 @@ public class PlayerLogic : MonoBehaviour
                 CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
 
                 ShowAdvice("OBJETO RECOGIDO: " + obj.itemData.itemName);
-                Debug.Log("Sonido de objeto recogido");
                 AudioSource.PlayClipAtPoint(takeObject, transform.position);
 
                 Debug.Log("Info del objeto: " + obj.itemData.ID + "\n"
@@ -246,8 +253,9 @@ public class PlayerLogic : MonoBehaviour
                 CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
 
                 ShowAdvice("OBJETO RECOGIDO: " + obj.itemData.itemName);
-                Debug.Log("Sonido de objeto recogido");
                 AudioSource.PlayClipAtPoint(takePage, transform.position);
+                narrationSource.clip = checkDiaryPhrase;
+                narrationSource.Play();
 
                 if (obj != null)
                 {
@@ -338,6 +346,8 @@ public class PlayerLogic : MonoBehaviour
 
             //instanciar como hija de la cámara
             equippedFlashlight = Instantiate(flashlightPrefab, playerCamera.transform);
+            narrationSource.clip = lumosPhrase;
+            narrationSource.Play();
 
             //posicionar a la derecha de la cámara (eje X hacia la derecha, en positivo, eje Y en negativo, hacia abajo, eje Z en positivo, un poco hacia delante)
             equippedFlashlight.transform.localPosition = new Vector3(0.8f, -0.4f, 0.5f);

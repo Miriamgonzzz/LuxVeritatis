@@ -20,7 +20,7 @@ public class SimonDice : MonoBehaviour
     public int puzzleSimonPoints = 100;
     public int penaltyPoints = 10;
 
-    public int puzzlePoints = 50;
+    public int puzzlePoints = 20;
     public GameObject crankObject;
     private bool alreadyUsed = false;
     private string equippedItemID;
@@ -30,11 +30,14 @@ public class SimonDice : MonoBehaviour
 
     public GameObject diaryPage4;
 
-    public AudioSource audioSource;
-    public AudioClip wellSound;
+    [Header("SFX")]
+    public AudioSource audioSource; //source para los sonidos
+    public AudioClip wellSound; //source para el sonido de la cadena del pozo
+    public AudioSource narrationSource; //audioSource para las frases de Elisa
+    public AudioClip puzzleSolvedPhrase; //clip de resolver puzzle
 
 
-private Color[] originalColors;
+    private Color[] originalColors;
 
     void Start()
     {
@@ -140,6 +143,7 @@ private Color[] originalColors;
                     FindFirstObjectByType<PlayerLogic>().ShowAdvice("¡Puzzle completado!");
                     FindFirstObjectByType<PlayerLogic>().AddPoints(puzzlePoints);
                     AudioSource.PlayClipAtPoint(wellSound, transform.position);
+                    AudioSource.PlayClipAtPoint(puzzleSolvedPhrase, transform.position);
                     simonCanvas.SetActive(false);
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
