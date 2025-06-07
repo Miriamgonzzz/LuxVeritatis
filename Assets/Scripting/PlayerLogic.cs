@@ -40,8 +40,10 @@ public class PlayerLogic : MonoBehaviour
     public TextMeshProUGUI adviceText;
     public TextMeshProUGUI playerPoints;
     public bool isHudActive = true;
-    public AudioSource audioSource; // arrastra el AudioSource aquí (puede estar en el jugador)
-    public AudioClip stepsClip;     // arrastra aquí tu MP3 convertido a AudioClip
+    public AudioSource audioSource; //arrastra el AudioSource aquí (puede estar en el jugador)
+    public AudioClip stepsClip;     //clip de sonido de pasos de Elisa
+    public AudioClip takeObject;//clip de sonido al coger objetos
+    public AudioClip takePage; //clip de sonido al coger páginas
 
     [Header("Objeto especial: Linterna")]
     public GameObject flashlightPrefab; //prefab de la linterna
@@ -125,7 +127,7 @@ public class PlayerLogic : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * moveSpeed * Time.deltaTime);
 
-        // Si te estás moviendo y no suena ya
+        //Si te estás moviendo y no suena ya
         if (move.magnitude > 0.1f && !audioSource.isPlaying)
         {
             audioSource.clip = stepsClip;
@@ -215,6 +217,8 @@ public class PlayerLogic : MonoBehaviour
                 CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
 
                 ShowAdvice("OBJETO RECOGIDO: " + obj.itemData.itemName);
+                Debug.Log("Sonido de objeto recogido");
+                AudioSource.PlayClipAtPoint(takeObject, transform.position);
 
                 Debug.Log("Info del objeto: " + obj.itemData.ID + "\n"
                     + obj.itemData.itemName + "\n"
@@ -242,6 +246,8 @@ public class PlayerLogic : MonoBehaviour
                 CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
 
                 ShowAdvice("OBJETO RECOGIDO: " + obj.itemData.itemName);
+                Debug.Log("Sonido de objeto recogido");
+                AudioSource.PlayClipAtPoint(takePage, transform.position);
 
                 if (obj != null)
                 {

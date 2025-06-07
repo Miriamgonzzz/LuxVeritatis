@@ -10,6 +10,10 @@ public class LockPuzzle : MonoBehaviour
     public GameObject door; //la puerta que se abre al solucionar el puzzle
     public Animator animator;
 
+    public AudioSource audioSource;
+    public AudioClip openDoorSound;
+    public AudioClip closeDoorSound;
+
     private int puzzlePoints = 100;
 
     private void Start()
@@ -43,6 +47,7 @@ public class LockPuzzle : MonoBehaviour
         if (!InventoryManager.Instance.HasItemEquipped())
         {
             FindFirstObjectByType<PlayerLogic>().ShowAdvice("La puerta está cerrada. Busca la llave correcta");
+            AudioSource.PlayClipAtPoint(closeDoorSound, transform.position);
             return;
         }
 
@@ -55,12 +60,14 @@ public class LockPuzzle : MonoBehaviour
             {
                 FindFirstObjectByType<PlayerLogic>().ShowAdvice("¡Cerradura desbloqueada!"); //para enviar un mensaje al HUD del jugador
                 FindFirstObjectByType<PlayerLogic>().AddPoints(puzzlePoints); //para actualizar la puntuación del jugador, pasándole los puntos que ha ganado
+                AudioSource.PlayClipAtPoint(openDoorSound, transform.position);
                 UnlockDoor();
                 InventoryManager.Instance.UnequipItem();
             }
             else
             {
                 FindFirstObjectByType<PlayerLogic>().ShowAdvice("La llave no coincide con la cerradura");
+                AudioSource.PlayClipAtPoint(closeDoorSound, transform.position);
                 puzzlePoints -= 10;
             }
         }

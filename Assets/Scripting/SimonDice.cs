@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class SimonDice : MonoBehaviour
@@ -29,7 +30,11 @@ public class SimonDice : MonoBehaviour
 
     public GameObject diaryPage4;
 
-    private Color[] originalColors;
+    public AudioSource audioSource;
+    public AudioClip wellSound;
+
+
+private Color[] originalColors;
 
     void Start()
     {
@@ -134,6 +139,7 @@ public class SimonDice : MonoBehaviour
                 {
                     FindFirstObjectByType<PlayerLogic>().ShowAdvice("¡Puzzle completado!");
                     FindFirstObjectByType<PlayerLogic>().AddPoints(puzzlePoints);
+                    AudioSource.PlayClipAtPoint(wellSound, transform.position);
                     simonCanvas.SetActive(false);
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
