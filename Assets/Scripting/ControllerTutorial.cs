@@ -8,34 +8,53 @@ public class ControllerTutorial : MonoBehaviour
     public MonoBehaviour cameraController;
     public MonoBehaviour playerMovement;
 
+    [Header("SFX")]
+    public AudioSource narrationSource; //audioSource para las frases de Elisa
+    public AudioClip lookNotePhrase; //clip para fijarse en la nota del fondo
+
     void Start()
     {
-        // Activar el canvas
+        //activamos el canvas de controles 
         introCanvas.SetActive(true);
 
-        // Mostrar y desbloquear el cursor
+        //mostramos y desbloqueamos el cursor, así como paralizamos el movimiento del jugador
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         cameraController.enabled = false;
         playerMovement.enabled = false;
 
 
-        // Pausar el juego (opcional)
+        //pausamos el juego
         Time.timeScale = 0f;
+    }
+
+    void Update()
+    {
+        if (introCanvas.activeSelf)  //si el canvas del tutorial está activo
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
+            {
+                CerrarCanvas();  //cerramos el tutorial al pulsar Escape, Q o E. Asi evitamos que se abran los demás menús del juego
+            }
+        }
     }
 
     public void CerrarCanvas()
     {
-        // Ocultar el canvas
+        //ocultamos el canvas
         introCanvas.SetActive(false);
 
-        // Ocultar y bloquear el cursor nuevamente
+        //ocultamos y bloqueamos el cursor, y permitimos el movimiento del personaje
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         cameraController.enabled = true;
         playerMovement.enabled = true;
 
-        // Reanudar el juego
+        //reanudamos el juego
         Time.timeScale = 1f;
+
+        //reproducir primera frase de Elisa al cerrar el Canva
+        narrationSource.clip = lookNotePhrase;
+        narrationSource.Play();
     }
 }

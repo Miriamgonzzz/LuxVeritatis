@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
@@ -20,6 +21,8 @@ public class PlayerLogic : MonoBehaviour
     public string inventoryObject = "InventoryObject"; //tag de los objetos que, al recogerlos, van al inventario
     public string puzzleToSolve = "PuzzleToSolve"; //tag de los objetos que inician un puzzle al interactuar con ellos
     public string diaryPage = "DiaryPage"; //tag para detectar las páginas del diario
+    public string cheeseDoor = "CheeseDoor"; //tag para interactuar con la puerta del final del juego
+    public string foodDoor = "FoodDoor"; //tag para las otras tres puertas que se desbloquean en el puzzle final (puertas erróneas)
     public Image crosshairImage; //referencia a la imagen de la mirilla
     public Color defaultColor = new Color(1f, 1f, 1f, 0.5f); //blanco semitransparente
     public Color interactColor = new Color(1f, 0f, 0f, 0.8f); //rojo más sólido
@@ -40,8 +43,16 @@ public class PlayerLogic : MonoBehaviour
     public TextMeshProUGUI adviceText;
     public TextMeshProUGUI playerPoints;
     public bool isHudActive = true;
-    public AudioSource audioSource; // arrastra el AudioSource aquí (puede estar en el jugador)
-    public AudioClip stepsClip;     // arrastra aquí tu MP3 convertido a AudioClip
+
+    [Header("SFX")]
+    public AudioSource audioSource; //audioSource para los sonidos
+    public AudioClip closeDoorSound; //sonido de puerta bloqueada
+    public AudioClip stepsClip;     //clip de sonido de pasos de Elisa
+    public AudioClip takeObject;//clip de sonido al coger objetos
+    public AudioClip takePage; //clip de sonido al coger páginas
+    public AudioSource narrationSource; //audioSource para las frases de Elisa
+    public AudioClip lumosPhrase; //clip de encender linterna
+    public AudioClip checkDiaryPhrase; //clip de revisar diario
 
     [Header("Objeto especial: Linterna")]
     public GameObject flashlightPrefab; //prefab de la linterna
@@ -125,7 +136,7 @@ public class PlayerLogic : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * moveSpeed * Time.deltaTime);
 
-        // Si te estás moviendo y no suena ya
+        //Si te estás moviendo y no suena ya
         if (move.magnitude > 0.1f && !audioSource.isPlaying)
         {
             audioSource.clip = stepsClip;
@@ -215,6 +226,7 @@ public class PlayerLogic : MonoBehaviour
                 CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
 
                 ShowAdvice("OBJETO RECOGIDO: " + obj.itemData.itemName);
+                AudioSource.PlayClipAtPoint(takeObject, transform.position);
 
                 Debug.Log("Info del objeto: " + obj.itemData.ID + "\n"
                     + obj.itemData.itemName + "\n"
@@ -242,6 +254,9 @@ public class PlayerLogic : MonoBehaviour
                 CollectableObject obj = hit.collider.GetComponent<CollectableObject>();
 
                 ShowAdvice("OBJETO RECOGIDO: " + obj.itemData.itemName);
+                AudioSource.PlayClipAtPoint(takePage, transform.position);
+                narrationSource.clip = checkDiaryPhrase;
+                narrationSource.Play();
 
                 if (obj != null)
                 {
@@ -258,6 +273,15 @@ public class PlayerLogic : MonoBehaviour
                 }
 
                 Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el inventario
+            }
+            else if (hit.collider.CompareTag(cheeseDoor) && !isInventoryOpen)
+            {
+                SceneManager.LoadScene("DinamicEndScene");
+            }
+            else if (hit.collider.CompareTag(foodDoor) && !isInventoryOpen)
+            {
+                AudioSource.PlayClipAtPoint(closeDoorSound, transform.position);
+                ShowAdvice("Puerta incorrecta. Prueba de nuevo");
             }
             else
             {
@@ -332,6 +356,8 @@ public class PlayerLogic : MonoBehaviour
 
             //instanciar como hija de la cámara
             equippedFlashlight = Instantiate(flashlightPrefab, playerCamera.transform);
+            narrationSource.clip = lumosPhrase;
+            narrationSource.Play();
 
             //posicionar a la derecha de la cámara (eje X hacia la derecha, en positivo, eje Y en negativo, hacia abajo, eje Z en positivo, un poco hacia delante)
             equippedFlashlight.transform.localPosition = new Vector3(0.8f, -0.4f, 0.5f);

@@ -25,6 +25,13 @@ public class DiaryManager : MonoBehaviour
     [Header("Inventario")]
     public GameObject inventoryPanel; //referencia al inventario para evitar que el diario se pueda abrir si tenemos el inventario abierto
 
+    [Header("SFX")]
+    public AudioSource narrationSource; //audioSource para las frases de Elisa
+    public AudioClip diaryPage001; //clip para la primera página del diario de Alvar
+    public AudioClip diaryPage002; //clip para la segunda página del diario de Alvar
+    public AudioClip diaryPage003; //clip para la tercera página del diario de Alvar
+    public AudioClip diaryPage004; //clip para la cuarta página del diario de Alvar
+
     void Start()
     {
         diaryUI.SetActive(false);
@@ -74,6 +81,7 @@ public class DiaryManager : MonoBehaviour
             playerLogic.enabled = true; // Activa al jugador
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            ClearPageButtons(true); //limpiamos botones y paramos audio de narración del diario cuando cerramos diario
         }
     }
 
@@ -82,7 +90,7 @@ public class DiaryManager : MonoBehaviour
         mapImage.gameObject.SetActive(false);
         diaryContentText.gameObject.SetActive(true);
 
-        // Limpia botones anteriores
+        //Limpia botones anteriores
         ClearPageButtons();
 
         // Obtener páginas recogidas
@@ -99,7 +107,7 @@ public class DiaryManager : MonoBehaviour
 
         int pageNumber = 1;
 
-        // Crear botones por cada página
+        //crear botones por cada página
         foreach (CollectibleItem page in pages)
         {
             GameObject buttonObj = Instantiate(pageButtonPrefab, pageButtonContainer);
@@ -112,8 +120,8 @@ public class DiaryManager : MonoBehaviour
             {
                 //enseñamos el texto
                 ShowPageContent(page);
-                //ocultamos los botones/páginas
-                ClearPageButtons();
+                //ocultamos los botones/páginas, pero no paramos el audio narrado de la página del diario
+                ClearPageButtons(false);
             });
         }
     }
@@ -121,12 +129,39 @@ public class DiaryManager : MonoBehaviour
     void ShowPageContent(CollectibleItem page)
     {
         diaryContentText.text = $"📖 {page.description}\n\n{page.storyText}";
+
+        //para reproducir el texto de la página del diario seleccionada
+        if (page.ID == "diary001")
+        {
+            Debug.Log("REPRODUCIENDO AUDIO DE NOTA 1");
+            narrationSource.clip = diaryPage001;
+            narrationSource.Play();
+        }
+        else if(page.ID == "diary002")
+        {
+            Debug.Log("REPRODUCIENDO AUDIO DE NOTA 2");
+            narrationSource.clip = diaryPage002;
+            narrationSource.Play();
+        }
+        else if(page.ID == "diary003")
+        {
+            Debug.Log("REPRODUCIENDO AUDIO DE NOTA 3");
+            narrationSource.clip = diaryPage003;
+            narrationSource.Play();
+        }
+        else
+        {
+            Debug.Log("REPRODUCIENDO AUDIO DE NOTA 4");
+            narrationSource.clip = diaryPage004;
+            narrationSource.Play();
+        }
+
     }
 
 
     void ShowMap()
     {
-        ClearPageButtons();
+        ClearPageButtons(true); //limpiamos botones y paramos audio de narración del diario
         diaryContentText.gameObject.SetActive(false);
         mapImage.sprite = mapSprite;
         mapImage.gameObject.SetActive(true);
@@ -134,15 +169,20 @@ public class DiaryManager : MonoBehaviour
 
     void ShowLore()
     {
-        ClearPageButtons();
+        ClearPageButtons(true); //limpiamos botones y paramos audio de narración del diario
         mapImage.gameObject.SetActive(false);
         diaryContentText.gameObject.SetActive(true);
         diaryContentText.text = "Aún no has recogido ningún coleccionable";
     }
 
-    //método para limpiar los botones de las páginas del diario
-    void ClearPageButtons()
+    //método para limpiar los botones de las páginas del diario y detener la narración del diario (le pasamos un booleado que
+    //por defecto es true. Se lo pasamos en false cuando no queremos detener la narración de las páginas del diario)
+    void ClearPageButtons(bool stopAudio = true)
     {
+        if (stopAudio)
+        {
+            narrationSource.Stop(); //solo para cuando cierres el diario, por ejemplo
+        }
         foreach (GameObject btn in activePageButtons)
         {
             Destroy(btn);
