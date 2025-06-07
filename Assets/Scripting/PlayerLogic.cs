@@ -20,6 +20,8 @@ public class PlayerLogic : MonoBehaviour
     public string inventoryObject = "InventoryObject"; //tag de los objetos que, al recogerlos, van al inventario
     public string puzzleToSolve = "PuzzleToSolve"; //tag de los objetos que inician un puzzle al interactuar con ellos
     public string diaryPage = "DiaryPage"; //tag para detectar las páginas del diario
+    public string cheeseDoor = "CheeseDoor"; //tag para interactuar con la puerta del final del juego
+    public string foodDoor = "FoodDoor"; //tag para las otras tres puertas que se desbloquean en el puzzle final (puertas erróneas)
     public Image crosshairImage; //referencia a la imagen de la mirilla
     public Color defaultColor = new Color(1f, 1f, 1f, 0.5f); //blanco semitransparente
     public Color interactColor = new Color(1f, 0f, 0f, 0.8f); //rojo más sólido
@@ -43,6 +45,7 @@ public class PlayerLogic : MonoBehaviour
 
     [Header("SFX")]
     public AudioSource audioSource; //audioSource para los sonidos
+    public AudioClip closeDoorSound; //sonido de puerta bloqueada
     public AudioClip stepsClip;     //clip de sonido de pasos de Elisa
     public AudioClip takeObject;//clip de sonido al coger objetos
     public AudioClip takePage; //clip de sonido al coger páginas
@@ -269,6 +272,15 @@ public class PlayerLogic : MonoBehaviour
                 }
 
                 Destroy(hit.collider.gameObject); //destruye el objeto interactuable, dado que ahora está en el inventario
+            }
+            else if (hit.collider.CompareTag(cheeseDoor) && !isInventoryOpen)
+            {
+                //nos vamos al Canvas del final del juego
+            }
+            else if (hit.collider.CompareTag(foodDoor) && !isInventoryOpen)
+            {
+                AudioSource.PlayClipAtPoint(closeDoorSound, transform.position);
+                ShowAdvice("Puerta incorrecta. Prueba de nuevo");
             }
             else
             {

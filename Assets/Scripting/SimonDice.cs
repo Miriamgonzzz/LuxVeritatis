@@ -36,6 +36,12 @@ public class SimonDice : MonoBehaviour
     public AudioSource narrationSource; //audioSource para las frases de Elisa
     public AudioClip puzzleSolvedPhrase; //clip de resolver puzzle
 
+    [Header("Puertas puzzle final")]
+    public GameObject breadDoor;
+    public GameObject grapesDoor;
+    public GameObject honeyDoor;
+    public GameObject cheeseDoor;
+
 
     private Color[] originalColors;
 
@@ -151,6 +157,7 @@ public class SimonDice : MonoBehaviour
                     cameraController.enabled = true;
                     playerMovement.enabled = true;
                     diaryPage4.SetActive(true);
+                    activateDoors();
                 }
                 else
                 {
@@ -186,5 +193,13 @@ public class SimonDice : MonoBehaviour
         buttonImage.color = highlightColor;
         yield return new WaitForSeconds(0.4f);
         buttonImage.color = originalColor;
+    }
+
+    public void activateDoors()
+    {
+        cheeseDoor.SetActive(true);
+        breadDoor.SetActive(true);
+        grapesDoor.SetActive(true);
+        honeyDoor.SetActive(true);
     }
 }
