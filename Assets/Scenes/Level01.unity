@@ -2892,6 +2892,8 @@ Transform:
   - {fileID: 2109346621}
   - {fileID: 302610429}
   - {fileID: 1343383135}
+  - {fileID: 498146876}
+  - {fileID: 911185767}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &343808283
@@ -3461,6 +3463,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474414658}
   m_CullTransparentMesh: 1
+--- !u!1001 &498146875
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 313176630}
+    m_Modifications:
+    - target: {fileID: 100006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+      propertyPath: m_Name
+      value: Sphere pot spikes plant prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.004772203
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.0017183695
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.0006249898
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.15485485
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.03778
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.02577
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+--- !u!4 &498146876 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400006, guid: 5eaff67a0a5636d4c85091e5ba989106, type: 3}
+  m_PrefabInstance: {fileID: 498146875}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &498785523 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4082151148742213502, guid: 7319b9492a5aa2843a1ce4c06b11caba, type: 3}
@@ -5000,6 +5076,63 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1001 &654890127
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 100002, guid: 644d2ca1049972c438156abace92092b, type: 3}
+      propertyPath: m_Name
+      value: Sphere pot shrub plant prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 644d2ca1049972c438156abace92092b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 157.44118
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 644d2ca1049972c438156abace92092b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -7.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 644d2ca1049972c438156abace92092b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -26.805845
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 644d2ca1049972c438156abace92092b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 644d2ca1049972c438156abace92092b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 644d2ca1049972c438156abace92092b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 644d2ca1049972c438156abace92092b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 644d2ca1049972c438156abace92092b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 644d2ca1049972c438156abace92092b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 644d2ca1049972c438156abace92092b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 644d2ca1049972c438156abace92092b, type: 3}
 --- !u!1 &662195330
 GameObject:
   m_ObjectHideFlags: 0
@@ -7249,6 +7382,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907451656}
   m_CullTransparentMesh: 1
+--- !u!1001 &911185766
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 313176630}
+    m_Modifications:
+    - target: {fileID: 100002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+      propertyPath: m_Name
+      value: Sphere pot pine plant prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.004772203
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.0017183695
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.0006249898
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.20072685
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.03691387
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.025603686
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+--- !u!4 &911185767 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400002, guid: 6f418055a7a671248914cc59682de6a7, type: 3}
+  m_PrefabInstance: {fileID: 911185766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &919615258
 GameObject:
   m_ObjectHideFlags: 0
@@ -16321,3 +16528,4 @@ SceneRoots:
   - {fileID: 313176630}
   - {fileID: 2131078553}
   - {fileID: 115588727}
+  - {fileID: 654890127}
