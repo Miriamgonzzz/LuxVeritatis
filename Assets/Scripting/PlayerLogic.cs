@@ -47,7 +47,6 @@ public class PlayerLogic : MonoBehaviour
     public AudioClip takeObject;//clip de sonido al coger objetos
     public AudioClip takePage; //clip de sonido al coger páginas
     public AudioSource narrationSource; //audioSource para las frases de Elisa
-    public AudioClip lookNotePhrase; //clip para fijarse en la nota del fondo
     public AudioClip lumosPhrase; //clip de encender linterna
     public AudioClip checkDiaryPhrase; //clip de revisar diario
 
@@ -71,8 +70,6 @@ public class PlayerLogic : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         playerCamera = GetComponentInChildren<Camera>();
-        narrationSource.clip = lookNotePhrase;
-        narrationSource.Play();
 
         playerPoints.text = "Puntos: ";
 

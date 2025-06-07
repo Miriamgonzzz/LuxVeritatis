@@ -71,7 +71,8 @@ public class LockPuzzle : MonoBehaviour
             {
                 FindFirstObjectByType<PlayerLogic>().ShowAdvice("La llave no coincide con la cerradura");
                 AudioSource.PlayClipAtPoint(closeDoorSound, transform.position);
-                AudioSource.PlayClipAtPoint(wrongObjectPhrase, transform.position);
+                narrationSource.clip = wrongObjectPhrase;
+                narrationSource.Play();
                 puzzlePoints -= 10;
             }
         }

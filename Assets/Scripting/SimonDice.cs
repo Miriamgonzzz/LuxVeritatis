@@ -143,7 +143,8 @@ public class SimonDice : MonoBehaviour
                     FindFirstObjectByType<PlayerLogic>().ShowAdvice("¡Puzzle completado!");
                     FindFirstObjectByType<PlayerLogic>().AddPoints(puzzlePoints);
                     AudioSource.PlayClipAtPoint(wellSound, transform.position);
-                    AudioSource.PlayClipAtPoint(puzzleSolvedPhrase, transform.position);
+                    narrationSource.clip = puzzleSolvedPhrase;
+                    narrationSource.Play();
                     simonCanvas.SetActive(false);
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
