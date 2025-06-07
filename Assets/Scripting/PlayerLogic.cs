@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
@@ -275,7 +276,7 @@ public class PlayerLogic : MonoBehaviour
             }
             else if (hit.collider.CompareTag(cheeseDoor) && !isInventoryOpen)
             {
-                //nos vamos al Canvas del final del juego
+                SceneManager.LoadScene("DinamicEndScene");
             }
             else if (hit.collider.CompareTag(foodDoor) && !isInventoryOpen)
             {
