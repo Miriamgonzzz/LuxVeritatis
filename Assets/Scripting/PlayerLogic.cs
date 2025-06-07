@@ -231,7 +231,7 @@ public class PlayerLogic : MonoBehaviour
             {
                 hit.collider.GetComponentInParent<LockPuzzle>().TryInteract();
             }
-            else if (hit.collider.GetComponentInParent<SimonDice>() && !isInventoryOpen) //busca en el padre del objeto golpeado (puerta o cerraduras) el script del primer puzzle, LockPuzzle, si el inventario está cerrado
+            else if (hit.collider.GetComponentInParent<SimonDice>() && !isInventoryOpen) //busca en el padre del objeto golpeado el script del puzzle simon dice si el inventario está cerrado
             {
                 hit.collider.GetComponentInParent<SimonDice>().TryInteract();
             }
