@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: HallKey04
   m_EditorClassIdentifier: 
   ID: key04
-  icon: {fileID: 21300000, guid: 169ae27ca03858648a938ad4f92a9baf, type: 3}
+  icon: {fileID: 21300000, guid: bea05fb77055c114883f4100358bb829, type: 3}
   prefabToInspect: {fileID: 5850780790688741293, guid: b5a14b716ad097641a272120067dd15e, type: 3}
-  itemName: 
-  itemType: 
-  description: 
-  storyText: 
+  itemName: "Llave vest\xEDbulo 04"
+  itemType: inventoryItem
+  description: Una llave de aspecto antiguo y oxidado
+  storyText: "Encontraste esta llave en el vest\xEDbulo de la Abad\xEDa"

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: diary003
   icon: {fileID: 21300000, guid: 4984a88f21d45f147ba08355295c8047, type: 3}
-  prefabToInspect: {fileID: 8708476036465387436, guid: a43658b10f3288b4b8320514459217e5, type: 3}
+  prefabToInspect: {fileID: 8708476036465387436, guid: 10225f89bf6468646b91f1ffefffbf81, type: 3}
   itemName: 
   itemType: 
   description: 
