@@ -174,7 +174,7 @@ public class PlayerLogic : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
-            if (hit.collider.CompareTag(inventoryObject) || hit.collider.CompareTag(puzzleToSolve) || hit.collider.CompareTag(diaryPage))
+            if (hit.collider.CompareTag(inventoryObject) || hit.collider.CompareTag(puzzleToSolve) || hit.collider.CompareTag(diaryPage) || hit.collider.CompareTag(cheeseDoor) || hit.collider.CompareTag(foodDoor))
             {
                 crosshairImage.color = interactColor;
                 isLookingAtInteractable = true;
