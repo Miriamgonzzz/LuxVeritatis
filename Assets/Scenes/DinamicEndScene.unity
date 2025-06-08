@@ -420,7 +420,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7a3f0dbf44a8df6418c8dcc974641e70, type: 3}
   photoPrefab: {fileID: 103755581486415262, guid: 0bb14c9608161fe44a8ad6eefc2b1255, type: 3}
   spawnArea: {fileID: 1746338}
-  spawnInterval: 10
+  spawnInterval: 15
   finalMusic: {fileID: 1983619991}
   mainMenuSceneName: MainMenu
 --- !u!4 &1231773277
