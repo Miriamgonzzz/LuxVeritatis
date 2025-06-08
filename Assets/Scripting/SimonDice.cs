@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class SimonDice : MonoBehaviour
@@ -19,7 +20,7 @@ public class SimonDice : MonoBehaviour
     public int puzzleSimonPoints = 100;
     public int penaltyPoints = 10;
 
-    public int puzzlePoints = 50;
+    public int puzzlePoints = 20;
     public GameObject crankObject;
     private bool alreadyUsed = false;
     private string equippedItemID;
@@ -28,6 +29,19 @@ public class SimonDice : MonoBehaviour
     public MonoBehaviour playerMovement;
 
     public GameObject diaryPage4;
+
+    [Header("SFX")]
+    public AudioSource audioSource; //source para los sonidos
+    public AudioClip wellSound; //source para el sonido de la cadena del pozo
+    public AudioSource narrationSource; //audioSource para las frases de Elisa
+    public AudioClip puzzleSolvedPhrase; //clip de resolver puzzle
+
+    [Header("Puertas puzzle final")]
+    public GameObject breadDoor;
+    public GameObject grapesDoor;
+    public GameObject honeyDoor;
+    public GameObject cheeseDoor;
+
 
     private Color[] originalColors;
 
@@ -134,12 +148,16 @@ public class SimonDice : MonoBehaviour
                 {
                     FindFirstObjectByType<PlayerLogic>().ShowAdvice("¡Puzzle completado!");
                     FindFirstObjectByType<PlayerLogic>().AddPoints(puzzlePoints);
+                    AudioSource.PlayClipAtPoint(wellSound, transform.position);
+                    narrationSource.clip = puzzleSolvedPhrase;
+                    narrationSource.Play();
                     simonCanvas.SetActive(false);
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                     cameraController.enabled = true;
                     playerMovement.enabled = true;
                     diaryPage4.SetActive(true);
+                    activateDoors();
                 }
                 else
                 {
@@ -175,5 +193,13 @@ public class SimonDice : MonoBehaviour
         buttonImage.color = highlightColor;
         yield return new WaitForSeconds(0.4f);
         buttonImage.color = originalColor;
+    }
+
+    public void activateDoors()
+    {
+        cheeseDoor.SetActive(true);
+        breadDoor.SetActive(true);
+        grapesDoor.SetActive(true);
+        honeyDoor.SetActive(true);
     }
 }

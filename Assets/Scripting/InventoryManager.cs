@@ -36,6 +36,12 @@ public class InventoryManager : MonoBehaviour
     [Header("HUD")]
     public GameObject playerHUD; // Asigna en el Inspector el GameObject que contiene el texto de Puntos u otros elementos del HUD
 
+    [Header("SFX")]
+    public AudioSource narrationSource; //audioSource para las frases de Elisa
+    public AudioClip wellPhrase; //clip de examinar la manivela del pozo (Script de inventario)
+    public AudioClip keyPhrase; //clip de examinar llave (Script de inventario)
+    public AudioClip equipItemPhrase; //clip de equipar item (Script de inventario)
+
 
 
     //al cargar el script, se asigna this como la instancia global para usar el singleton
@@ -144,6 +150,19 @@ public class InventoryManager : MonoBehaviour
             Destroy(currentInspectObject);
         }
 
+        
+        if (item.ID.Contains("key"))
+        {
+            Debug.Log("REPRODUCIENDO SONIDO DE EQUIPAR LLAVE");
+            narrationSource.clip = keyPhrase;
+            narrationSource.Play();
+        }
+        else
+        {
+            narrationSource.clip = wellPhrase;
+            narrationSource.Play();
+        }
+
         currentInspectObject = Instantiate(item.prefabToInspect, inspectSpawnPoint); //instancia el objeto a inspeccionar en la posición del inspectSpawnPoint
         InventoryItemPreview preview = currentInspectObject.AddComponent<InventoryItemPreview>();
         preview.sourcePrefab = item.prefabToInspect;//usamos el script de InventoryItemPreview para guardar una preview que podremos equipar si elegimos el objeto
@@ -217,6 +236,7 @@ public class InventoryManager : MonoBehaviour
         equippedObject = Instantiate(currentInspectObject.GetComponent<InventoryItemPreview>().sourcePrefab, handSlot);
         equippedObject.transform.localPosition = Vector3.zero;
         equippedObject.transform.localRotation = Quaternion.identity;
+        AudioSource.PlayClipAtPoint(equipItemPhrase, transform.position);
 
         //obtener el ID desde el CollectibleItem correspondiente
         InventoryItemPreview preview = currentInspectObject.GetComponent<InventoryItemPreview>();
