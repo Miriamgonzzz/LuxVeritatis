@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PhotoSpawner : MonoBehaviour
 {
@@ -9,13 +10,17 @@ public class PhotoSpawner : MonoBehaviour
     public GameObject photoPrefab;            // El prefab base
     public RectTransform spawnArea;           // El área donde caen (Canvas o panel)
     public float spawnInterval = 0.5f;        // Tiempo entre fotos
+    public AudioSource finalMusic;            // Asigna el AudioSource con la canción
+    public string mainMenuSceneName = "MainMenu"; // Cambia esto al nombre real de tu escena de menú
 
     private List<Sprite> remainingSprites = new List<Sprite>(); // Para controlar no repetir
+
 
     void Start()
     {
         remainingSprites.AddRange(photoSprites);
         StartCoroutine(DelayedStart());
+        StartCoroutine(WaitForMusicToEnd());
     }
 
     IEnumerator DelayedStart()
@@ -85,5 +90,19 @@ public class PhotoSpawner : MonoBehaviour
         }
 
         canvasGroup.alpha = 1;
+    }
+
+    IEnumerator WaitForMusicToEnd()
+    {
+        // Esperar a que la música comience si aún no suena
+        while (!finalMusic.isPlaying)
+            yield return null;
+
+        // Esperar a que termine de sonar
+        while (finalMusic.isPlaying)
+            yield return null;
+
+        // Cuando termina, cargar el menú
+        SceneManager.LoadScene(mainMenuSceneName);
     }
 }
